@@ -37,7 +37,7 @@ $(document).ready(function(){
             songsList = JSON.parse(json);
             playlistOptions = {
                 enableRemoveControls: true,
-                autoPlay: true//自动播放
+                autoPlay: false//自动播放
             };
         }
 
