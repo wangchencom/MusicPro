@@ -1,17 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" class="app">
-<head>  
-  <meta charset="utf-8" />
-  <title>发现好音乐</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link rel="stylesheet" href="js/jPlayer/jplayer.flat.css" type="text/css" />
-  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
-  <link rel="stylesheet" href="css/animate.css" type="text/css" />
-  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="css/simple-line-icons.css" type="text/css" />
-  <link rel="stylesheet" href="css/font.css" type="text/css" />
-  <link rel="stylesheet" href="css/app.css" type="text/css" />
-</head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" class="app">
+<head th:replace="common/links::head('发现好音乐')"></head>
 <body class="">
   <section class="vbox">
     <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
@@ -47,7 +37,12 @@
       </form>
       <div class="navbar-right ">
         <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-          
+
+            <li class="hidden-xs">
+                <a href="/page/login" class="dropdown-toggle lt"> 登陆 | 注册 </a>
+            </li>
+
+
           <li class="dropdown">
             <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
@@ -61,14 +56,15 @@
                 <a href="#">设置</a>
               </li>
               <li>
-                <a href="profile.html">简介</a>
+                <a href="/page/user/profile">简介</a>
               </li>
               <li class="divider"></li>
               <li>
-                <a href="modal.lockme.html" data-toggle="ajaxModal" >注销</a>
+                <a href="#modal.lockme.html" data-toggle="ajaxModal" >注销</a>
               </li>
             </ul>
           </li>
+
         </ul>
       </div>      
     </header>
@@ -221,7 +217,6 @@
                         </a>
                       </div>
                     </div>
-                    <button id="123" onclick="changeMusic()">测试按钮</button>
                   </div>
                 </section>
 
@@ -305,15 +300,5 @@
       </section>
     </section>    
   </section>
-  <script src="js/jquery.min.js"></script>
-  <!-- Bootstrap -->
-  <script src="js/bootstrap.js"></script>
-  <!-- App -->
-  <script src="js/app.js"></script>  
-  <script src="js/slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="js/app.plugin.js"></script>
-  <script type="text/javascript" src="js/jPlayer/jquery.jplayer.min.js"></script>
-  <script type="text/javascript" src="js/jPlayer/add-on/jplayer.playlist.min.js"></script>
-  <script type="text/javascript" src="js/jPlayer/demo.js"></script>
 </body>
 </html>
