@@ -35,17 +35,19 @@
     <div class="navbar-right ">
         <ul class="nav navbar-nav m-n hidden-xs nav-user user">
 
-            <li class="hidden-xs">
-                <a href="/page/login" class="dropdown-toggle lt"> 登陆 | 注册 </a>
+            <li th:if="${session.user == null}" class="hidden-xs">
+                <a href="/user/login" class="dropdown-toggle lt"> 登陆&nbsp;&nbsp;|&nbsp;&nbsp;注册 </a>
             </li>
 
 
-            <li class="dropdown">
+
+
+            <li th:if="${session.user != null}" class="dropdown">
                 <a href="#" class="dropdown-toggle bg clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
                 <img src="images/m0.jpg" alt="...">
               </span>
-                    云音乐用户 <b class="caret"></b>
+                    <span th:text="${session.user.userName}">云音乐用户</span> <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight">
                     <li>
@@ -53,11 +55,11 @@
                         <a href="#">设置</a>
                     </li>
                     <li>
-                        <a href="/page/user/profile">简介</a>
+                        <a href="/user/profile">简介</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="#modal.lockme.html" data-toggle="ajaxModal" >注销</a>
+                        <a href="/user/logout">注销</a>
                     </li>
                 </ul>
             </li>

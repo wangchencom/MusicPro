@@ -11,19 +11,20 @@
         <header class="wrapper text-center">
           <strong>用户登录</strong>
         </header>
-        <form action="#">
+        <form action="/user/login" method="post">
           <div class="form-group">
-            <input type="text" placeholder="用户名..." class="form-control rounded input-lg text-center no-border">
+            <input type="email" name="email" placeholder="用户名..." class="form-control rounded input-lg text-center no-border">
           </div>
           <div class="form-group">
-             <input type="password" placeholder="密码..." class="form-control rounded input-lg text-center no-border">
+             <input type="password" name="userPassword" placeholder="密码..." class="form-control rounded input-lg text-center no-border">
           </div>
           <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">登  陆</span></button>
           <div class="text-center m-t m-b"><a href="#"><small>忘记密码？</small></a></div>
           <div class="line line-dashed"></div>
           <p class="text-muted text-center"><small>还没有账号？</small></p>
-          <a href="/page/register" class="btn btn-lg btn-info btn-block rounded">创建一个</a>
+          <a href="/user/register" class="btn btn-lg btn-info btn-block rounded">创建一个</a>
         </form>
+        <p th:text="${errorMsg}" style="text-align: center;color: red"></p>
       </section>
     </div>
   </section>
