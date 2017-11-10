@@ -14,7 +14,8 @@
 
 
 小技巧：
-```@Configuration
+```
+   @Configuration
    public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
    
        //通过重写addResourceHandlers方法来自定义外部资源映射
@@ -23,4 +24,5 @@
            registry.addResourceHandler("/upload/**").addResourceLocations("file:E:/upload/");
            super.addResourceHandlers(registry);
        }
-   }```
+   }
+```
