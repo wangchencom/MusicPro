@@ -20,6 +20,12 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 
 	@Override
+	public Boolean checkEmailUsed(String email) {
+		Integer uid = userMapper.checkEmailUsed(email);
+		return uid != null;
+	}
+
+	@Override
 	public User login(User user) {
 		if (StringUtils.isEmpty(user.getEmail()) ||
 				StringUtils.isEmpty(user.getUserPassword())) {

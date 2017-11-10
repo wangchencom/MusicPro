@@ -9,6 +9,8 @@ import com.bfh.entity.User;
  */
 public interface UserService {
 
+	Boolean checkEmailUsed(String email);
+
 	User login(User user);
 
 	User getUserByUsername(String userName);

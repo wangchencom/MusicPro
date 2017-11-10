@@ -11,6 +11,9 @@ import org.apache.ibatis.annotations.Select;
  */
 public interface UserMapper {
 
+	@Select("SELECT uid FROM t_user WHERE email = #{email}")
+	Integer checkEmailUsed(@Param("email") String email);
+
 	@Select("SELECT uid,email,userName,userImage,userMood,userGrade FROM t_user WHERE email = #{email} AND userPassword = #{userPassword}")
 	User login(User user);
 

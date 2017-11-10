@@ -10,26 +10,34 @@
         <header class="wrapper text-center">
           <strong>加入我们也许会发现一些有趣的事</strong>
         </header>
-        <form action="#">
+
+
+        <form action="/user/register" method="post">
           <div class="form-group">
-            <input type="text" placeholder="用户名" class="form-control rounded input-lg text-center no-border">
+            <input type="text" name="userName" placeholder="昵称" class="form-control rounded input-lg text-center no-border">
           </div>
           <div class="form-group">
-            <input type="email" placeholder="邮箱" class="form-control rounded input-lg text-center no-border">
+            <input type="email" name="email" id="email" placeholder="邮箱" class="form-control rounded input-lg text-center no-border">
           </div>
           <div class="form-group">
-             <input type="password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
+             <input type="first_password" name="first_password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
+          </div>
+          <div class="form-group">
+              <input type="second_password" name="second_password" placeholder="确认密码" class="form-control rounded input-lg text-center no-border">
           </div>
           <div class="checkbox i-checks m-b">
             <label class="m-l">
-              <input type="checkbox" checked=""><i></i> 同意 <a href="#">使用协议</a>
+              <input type="checkbox" name="checkbox" checked="yes"><i></i> 同意 <a href="#">使用协议</a>
             </label>
           </div>
-          <button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">注  册</span></button>
+          <div id="reg_ok"><button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">注  册</span></button></div>
+          <div id="reg_error" hidden="hidden"><button type="submit" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded disabled"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">该邮箱已被注册</span></button></div>
           <div class="line line-dashed"></div>
           <p class="text-muted text-center"><small>已经拥有账号？</small></p>
-          <a href="/page/login" class="btn btn-lg btn-info btn-block btn-rounded">登  陆</a>
+          <a href="/user/login" class="btn btn-lg btn-info btn-block btn-rounded">登  陆</a>
         </form>
+
+
       </section>
     </div>
   </section>
@@ -37,4 +45,31 @@
   <footer id="footer" th:replace="common/links::footer"></footer>
   <!-- / footer -->
 </body>
+<script>
+    $(function(){
+        $("#email").blur(function(){
+            var email = $("#email").val();
+            if(email != null && email != ""){
+                checkName(email);
+            }
+        });
+    });
+
+    function checkName(email){
+        $.ajax({
+            url:'/user/checkName',
+            type:'post',
+            data:{"email":email},
+            success:function(data){
+                if(data){
+                    $("#reg_ok").attr("hidden","hidden");
+                    $("#reg_error").removeAttr("hidden");
+                }else{
+                    $("#reg_error").attr("hidden","hidden");
+                    $("#reg_ok").removeAttr("hidden");
+                }
+            }
+        });
+    }
+</script>
 </html>
