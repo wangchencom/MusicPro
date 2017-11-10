@@ -3,6 +3,7 @@
 * Spring boot
 * thymeleaf
 * mybatis
+* logback
 
 
 
