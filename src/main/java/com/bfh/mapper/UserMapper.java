@@ -1,6 +1,7 @@
 package com.bfh.mapper;
 
 import com.bfh.entity.User;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -10,6 +11,9 @@ import org.apache.ibatis.annotations.Select;
  * @Description: 用户mapper
  */
 public interface UserMapper {
+
+	@Insert("INSERT INTO t_user VALUES(NULL,#{email},#{userPassword},#{userName},#{userImage},#{userMood},0)")
+	void insertUser(User user);
 
 	@Select("SELECT uid FROM t_user WHERE email = #{email}")
 	Integer checkEmailUsed(@Param("email") String email);

@@ -1,6 +1,7 @@
 package com.bfh.service;
 
 import com.bfh.entity.User;
+import com.bfh.vo.RegisterVo;
 
 /**
  * @Author bfh
@@ -8,6 +9,8 @@ import com.bfh.entity.User;
  * @Description: 用户业务层接口
  */
 public interface UserService {
+
+	Boolean register(RegisterVo registerVo);
 
 	Boolean checkEmailUsed(String email);
 

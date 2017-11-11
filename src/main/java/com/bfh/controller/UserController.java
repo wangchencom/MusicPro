@@ -2,6 +2,7 @@ package com.bfh.controller;
 
 import com.bfh.entity.User;
 import com.bfh.service.UserService;
+import com.bfh.vo.RegisterVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -31,12 +32,24 @@ public class UserController {
 
 
 	/**
+	 * 用户注册
+	 * @param registerVo 注册用户vo
+	 * @return true 注册成功，false 注册失败
+	 */
+	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
+	public @ResponseBody
+	Boolean register(RegisterVo registerVo) {
+		return userService.register(registerVo);
+	}
+
+
+	/**
 	 * 检查用户邮箱是否被注册
 	 * @return true 被注册  false  没有被注册
 	 */
 	@RequestMapping("/user/checkName")
 	public @ResponseBody
-	boolean checkEmailUsed(String email) {
+	Boolean checkEmailUsed(String email) {
 		return userService.checkEmailUsed(email);
 	}
 
