@@ -32,7 +32,7 @@ public class UserRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		logger.error("-->授权：UserRealm.doGetAuthenticationInfo()");
+		logger.info("-->授权：UserRealm.doGetAuthenticationInfo()");
 
 //		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 //		User user = (User) principals.getPrimaryPrincipal();
@@ -51,7 +51,7 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
-		logger.error("-->认证：UserRealm.doGetAuthenticationInfo()");
+		logger.info("-->认证：UserRealm.doGetAuthenticationInfo()");
 
 		String username = (String) token.getPrincipal();
 		User user = userService.getUserByUsername(username);
