@@ -1,9 +1,7 @@
 package com.bfh.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @Author bfh
@@ -16,21 +14,28 @@ public class PageController {
 
 
 	/**
-	 * 页面跳转处理(根目录)
+	 * 跳转到用户详情界面
 	 */
-	@RequestMapping(value = "/page/{url}", method = RequestMethod.GET)
-	public String changePage(@PathVariable String url) {
-		return url;
+	@RequestMapping("/user/profile")
+	public String userProfile() {
+		return "user/profile";
 	}
 
 	/**
-	 * 页面跳转处理(二级目录)
+	 * 跳转到注册界面
 	 */
-	@RequestMapping(value = "/page/{url1}/{url2}", method = RequestMethod.GET)
-	public String changePageTo(@PathVariable String url1, @PathVariable String url2) {
-		return url1 + "/" + url2;
+	@RequestMapping("/user/register")
+	public String userRegister() {
+		return "register";
 	}
 
+	/**
+	 * 跳转到登陆界面
+	 */
+	@RequestMapping("/user/login")
+	public String userLogin() {
+		return "login";
+	}
 
 	/**
 	 * 跳转到首页
@@ -38,5 +43,26 @@ public class PageController {
 	@RequestMapping({"/","/index"})
 	public String index() {
 		return "index";
+	}
+
+	/**
+	 * 跳转到404界面
+	 */
+	@RequestMapping("/404")
+	public String errorUI() {
+		return "404";
+	}
+
+	/**
+	 * 测试：iframe化播放器
+	 */
+	@RequestMapping("/music")
+	public String music() {
+		return "music";
+	}
+
+	@RequestMapping("/main")
+	public String main() {
+		return "main";
 	}
 }
