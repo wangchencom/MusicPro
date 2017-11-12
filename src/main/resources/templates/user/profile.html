@@ -1,164 +1,92 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" class="app">
-<head th:replace="common/links::head('用户信息')"></head>
+<head th:replace="common/links::head('个人中心')"></head>
 <body class="">
   <section class="vbox">
-    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
-      <div class="navbar-header aside bg-info dk">
-        <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
-          <i class="icon-list"></i>
-        </a>
-        <a href="index.html" class="navbar-brand text-lt">
-          <i class="icon-earphones"></i>
-          <img src="../../images/logo.png" alt="." class="hide">
-          <span class="hidden-nav-xs m-l-sm">Musik</span>
-        </a>
-        <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
-          <i class="icon-settings"></i>
-        </a>
-      </div>      <ul class="nav navbar-nav hidden-xs">
-        <li>
-          <a href="#nav,.navbar-header" data-toggle="class:nav-xs,nav-xs" class="text-muted">
-            <i class="fa fa-indent text"></i>
-            <i class="fa fa-dedent text-active"></i>
-          </a>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
-            </span>
-            <input type="text" class="form-control input-sm no-border rounded" placeholder="Search songs, albums...">
-          </div>
-        </div>
-      </form>
-            
-    </header>
+    <header th:replace="common/header::header" ></header>
+
     <section>
       <section class="hbox stretch">
-        <!-- .aside -->
-        <aside class="bg-black dk aside hidden-print" id="nav">          
-          <section class="vbox">
-            <section class="w-f-md scrollable">
-              <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
-                
+        <aside th:replace="common/aside::aside"></aside>
 
-
-                <!-- nav -->                 
-                <nav class="nav-primary hidden-xs">
-                  
-                </nav>
-                <!-- / nav -->
-              </div>
-            </section>
-            
-            
-          </section>
-        </aside>
-        <!-- /.aside -->
         <section id="content">
-          <section class="vbox">
-            <section class="scrollable">
-              <section class="hbox stretch">
-                <aside class="aside-lg bg-light lter b-r">
-                  <section class="vbox">
-                    <section class="scrollable">
-                      <div class="wrapper">
-                        <div class="text-center m-b m-t">
-                          <a href="#" class="thumb-lg">
-                            <img src="../../images/m0.jpg" class="img-circle">
-                          </a>
-                          <div>
-                            <div class="h3 m-t-xs m-b-xs">夏天</div>
-                            <small class="text-muted"><i class="fa fa-map-marker"></i> 安徽，芜湖</small>
-                          </div>                
-                        </div>
-                        <div class="panel wrapper">
-                          <div class="row text-center">
-                            <div class="col-xs-6">
-                              <a href="#">
-                                <span class="m-b-xs h4 block">245</span>
-                                <small class="text-muted">鲜花</small>
-                              </a>
-                            </div>
-                            <div class="col-xs-6">
-                              <a href="#">
-                                <span class="m-b-xs h4 block">55</span>
-                                <small class="text-muted">粉丝</small>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="btn-group btn-group-justified m-b">
-                          <a class="btn btn-success btn-rounded" data-toggle="button">
-                            <span class="text">
-                              <i class="fa fa-eye"></i> 关注
-                            </span>
-                            <span class="text-active">
-                              <i class="fa fa-eye"></i> 已关注
-                            </span>
-                          </a>
-                          <a class="btn btn-dark btn-rounded">
-                            <i class="fa fa-comment-o"></i> 私聊
-                          </a>
-                        </div>
-                        <div>
-                          <small class="text-uc text-xs text-muted">心情</small>
-                          
-                          <p>太阳当空照，花儿对我笑.</p>
-                          <div class="line"></div>
-                          
-                        </div>
-                      </div>
-                    </section>
+          <section class="hbox stretch">
+            <section>
+              <section class="vbox">
+                  <section class="scrollable">
+                      <section class="hbox stretch">
+                          <aside class="aside-lg bg-light lter b-r">
+                              <section class="vbox">
+                                  <section class="scrollable">
+                                      <div class="wrapper">
+                                          <div class="text-center m-b m-t">
+                                              <a href="#" class="thumb-lg">
+                                                  <img src="/images/m0.jpg" class="img-circle">
+                                              </a>
+                                              <div>
+                                                  <div th:text1="${session.user.userName}" class="h3 m-t-xs m-b-xs">夏天</div>
+                                                  <small class="text-muted"><i class="fa fa-map-marker"></i> 安徽，芜湖</small>
+                                              </div>
+                                          </div>
+                                          <div class="panel wrapper">
+                                              <div class="row text-center">
+                                                  <div class="col-xs-6">
+                                                      <a href="#">
+                                                          <span class="m-b-xs h4 block">245</span>
+                                                          <small class="text-muted">鲜花</small>
+                                                      </a>
+                                                  </div>
+                                                  <div class="col-xs-6">
+                                                      <a href="#">
+                                                          <span class="m-b-xs h4 block">55</span>
+                                                          <small class="text-muted">粉丝</small>
+                                                      </a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="btn-group btn-group-justified m-b">
+                                              <a class="btn btn-success btn-rounded" data-toggle="button">
+                                                <span class="text">
+                                                  <i class="fa fa-eye"></i> 关注
+                                                </span>
+                                                <span class="text-active">
+                                                  <i class="fa fa-eye"></i> 已关注
+                                                </span>
+                                              </a>
+                                              <a class="btn btn-dark btn-rounded">
+                                                  <i class="fa fa-comment-o"></i> 私聊
+                                              </a>
+                                          </div>
+                                          <div>
+                                              <small class="text-uc text-xs text-muted">心情</small>
+
+                                              <p th:text="${session.user.userMood}">太阳当空照，花儿对我笑.</p>
+                                              <div class="line"></div>
+
+                                          </div>
+                                      </div>
+                                  </section>
+                              </section>
+                          </aside>
+                          <aside class="bg-white">
+                              <section style="border: 10px;">
+
+                              </section>
+                          </aside>
+
+                      </section>
                   </section>
-                </aside>
-                <aside class="bg-white">
-                  <section class="vbox">
-                    <header class="header bg-light lt">
-                      <ul class="nav nav-tabs nav-white">
-                        <li class="active"><a href="#activity" data-toggle="tab">活动</a></li>
-                        <li class=""><a href="#events" data-toggle="tab">事件</a></li>
-                        <li class=""><a href="#interaction" data-toggle="tab">互动</a></li>
-                      </ul>
-                    </header>
 
 
-                    <section class="scrollable">
-                      <div class="tab-content">
-                        <div class="tab-pane active" id="activity">
-                          <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
-                            <li class="list-group-item">
-                              <a href="#" class="thumb-sm pull-left m-r-sm">
-                                <img src="../../images/m0.jpg" class="img-circle">
-                              </a>
-                              <a href="#" class="clear">
-                                <small class="pull-right">3分钟前</small>
-                                <strong class="block">秋天</strong>
-                                <small>我倒，你也在网上冲浪啊 ... </small>
-                              </a>
-                            </li>
-                            
-                          </ul>
-                        </div>
-                        <div class="tab-pane" id="events">
-                          <div class="text-center wrapper">
-                            <i class="fa fa-spinner fa fa-spin fa fa-large"></i>
-                          </div>
-                        </div>
-                        <div class="tab-pane" id="interaction">
-                          <div class="text-center wrapper">
-                            <i class="fa fa-spinner fa fa-spin fa fa-large"></i>
-                          </div>
-                        </div>
-                      </div>
-                    </section>
-                  </section>
-                </aside>
-                
+
+
+                <!--<iframe id="UI" style="width: 100%;height: 100%;" frameborder="no" marginwidth="0" marginheight="0"></iframe>-->
+                <!--悬浮式音乐播放器，笑-->
+                <footer style="padding: 0 5px;">
+                    <iframe id="UI" style="width: 100%;" frameborder="no"></iframe>
+                </footer>
+                <!-- /music end-->
               </section>
             </section>
           </section>
@@ -167,8 +95,5 @@
       </section>
     </section>    
   </section>
-
-
-
 </body>
 </html>
