@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 /**
  * @Author bfh
  * @Time 2017/11/9
@@ -66,10 +67,10 @@ public class UserController {
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getUserPassword());
 		try {
 			subject.login(token);
-			logger.error("-->登陆成功");
+			logger.info("-->登陆成功");
 		} catch (AuthenticationException e) {
 			e.printStackTrace();
-			logger.error("-->登陆失败");
+			logger.info("-->登陆失败");
 			model.addFlashAttribute("errorMsg","用户名或者密码错误...");
 			return "redirect:/user/login";
 		}
