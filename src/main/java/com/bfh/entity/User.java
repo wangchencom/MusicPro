@@ -1,11 +1,13 @@
 package com.bfh.entity;
 
+import java.io.Serializable;
+
 /**
  * @Author bfh
  * @Time 2017/11/9
  * @Description: 用户实体类
  */
-public class User {
+public class User implements Serializable{
 
 	private int uid;
 	private String email;
