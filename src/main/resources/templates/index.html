@@ -52,6 +52,26 @@
       //加载首页时初始化内容页
       $('#mainUI').attr('src','/main');
   });
+
+  function changeMusic(url) {
+      $('#musicUI').attr('src',url);
+  }
+
+  //通过url改变内容页内容
+  function changeMainUI(url,title) {
+      $('#mainUI').attr('src',url);
+      document.title = title;
+      window.history.pushState(null, null, '/#'+url);
+  }
+
+  //通过url改变父窗口内容
+  function changeParentUI(title,state) {
+
+      document.title = title;
+      window.history.pushState(null, null, state);
+  }
+
+
 </script>
 </body>
 </html>
