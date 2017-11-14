@@ -1,6 +1,8 @@
 package com.bfh.service.impl;
 
 import com.bfh.entity.User;
+import com.bfh.entity.UserGrade;
+import com.bfh.mapper.UserGradeMapper;
 import com.bfh.mapper.UserMapper;
 import com.bfh.service.UserService;
 import com.bfh.vo.RegisterVo;
@@ -19,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private UserGradeMapper userGradeMapper;
 
 	@Override
 	public Boolean register(RegisterVo registerVo) {
@@ -34,6 +38,12 @@ public class UserServiceImpl implements UserService {
 				user.setUserImage("/images/m0.jpg");
 				user.setUserMood("太阳当空照，花儿对我笑");
 				userMapper.insertUser(user);
+				//初始化用户等级
+				UserGrade userGrade = new UserGrade();
+				userGrade.setUid(user.getUid());
+				userGrade.setGrade(1);//用户初始等级为1
+				userGrade.setScore(0);//用户初始积分为0
+				userGradeMapper.insertUserGrade(userGrade);
 				return true;
 			}
 		}
