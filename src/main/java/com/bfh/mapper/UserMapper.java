@@ -2,6 +2,7 @@ package com.bfh.mapper;
 
 import com.bfh.entity.User;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -13,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
 
 	@Insert("INSERT INTO t_user VALUES(NULL,#{email},#{userPassword},#{userName},#{userImage},#{userMood},0)")
+	@Options(useGeneratedKeys = true, keyProperty = "uid", keyColumn = "uid")
 	void insertUser(User user);
 
 	@Select("SELECT uid FROM t_user WHERE email = #{email}")
