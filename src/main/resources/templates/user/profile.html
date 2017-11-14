@@ -2,13 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" class="app">
 <head th:replace="common/links::head('个人中心')"></head>
-<body class="">
+<body class="" ondragstart="return false">
   <section class="vbox">
-    <header th:replace="common/header::header" ></header>
 
     <section>
       <section class="hbox stretch">
-        <aside th:replace="common/aside::aside"></aside>
 
         <section id="content">
           <section class="hbox stretch">
@@ -25,7 +23,7 @@
                                                   <img src="/images/m0.jpg" class="img-circle">
                                               </a>
                                               <div>
-                                                  <div th:text1="${session.user.userName}" class="h3 m-t-xs m-b-xs">夏天</div>
+                                                  <div th:text="${session.user.userName}" class="h3 m-t-xs m-b-xs">夏天</div>
                                                   <small class="text-muted"><i class="fa fa-map-marker"></i> 安徽，芜湖</small>
                                               </div>
                                           </div>
@@ -70,23 +68,34 @@
                               </section>
                           </aside>
                           <aside class="bg-white">
-                              <section style="border: 10px;">
+                              <form name="uploadForm" action="/music/uploadMusic" method="post" enctype="multipart/form-data" >
+                                  <div class="row" style="padding-top: 90px;">
+                                      <div class="col-md-3"></div>
+                                      <div class="col-md-6">
+                                          <img src="/images/upload_img.png" onclick="F_open_dialog()">
+                                          <input type="file" id="file" name="file" style="display:none" onchange="change()">
 
-                              </section>
+                                      </div>
+
+                                      <div class="col-md-3"></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-4"></div>
+                                      <div class="col-md-4" style="text-align: center;">
+                                          <p id="file_name"></p>
+                                          <input type="submit" id="submit_file" class="btn btn-success" style="display:none" value="上  传" />
+
+                                      </div>
+
+                                      <div class="col-md-4"></div>
+
+                                  </div>
+                              </form>
                           </aside>
 
                       </section>
                   </section>
 
-
-
-
-                <!--<iframe id="UI" style="width: 100%;height: 100%;" frameborder="no" marginwidth="0" marginheight="0"></iframe>-->
-                <!--悬浮式音乐播放器，笑-->
-                <footer style="padding: 0 5px;">
-                    <iframe id="UI" style="width: 100%;" frameborder="no"></iframe>
-                </footer>
-                <!-- /music end-->
               </section>
             </section>
           </section>
@@ -96,4 +105,19 @@
     </section>    
   </section>
 </body>
+<script>
+    function F_open_dialog() {
+        document.getElementById("file").click();
+    }
+    function change() {
+        var obj = document.getElementById("file");
+        var len = obj.files.length;
+        for (var i = 0; i < len; i++) {
+            var name = obj.files[i].name;
+            $("#file_name").html('您已选择：'+name);
+        }
+        $("#submit_file").show();
+    }
+
+</script>
 </html>
