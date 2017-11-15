@@ -110,8 +110,10 @@
             url: "/music/playMusic",
             data: {'id':id},
             success: function(data){
-                parent.changeParentUI(data,'/#/music/playMusic'+data);
+                //parent.changeParentUI(data,'/#/music/playMusic'+data);
                 parent.changeMusic('/music');
+                //跳转到歌曲详情页面
+                parent.changeMainUI('/music/musicInfo/'+id, data);
             }
         });
     }

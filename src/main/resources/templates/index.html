@@ -31,11 +31,6 @@
                     <iframe id="musicUI" style="width: 95%;" frameborder="no"></iframe>
                 </div>
                 <!--music end-->
-
-
-
-
-
               </section>
             </section>
 
@@ -57,19 +52,19 @@
       $('#musicUI').attr('src',url);
   }
 
-  //通过url改变内容页内容
+  //通过url改变父窗口内容
   function changeMainUI(url,title) {
       $('#mainUI').attr('src',url);
       document.title = title;
       window.history.pushState(null, null, '/#'+url);
   }
 
-  //通过url改变父窗口内容
+/*  //通过url改变父窗口内容
   function changeParentUI(title,state) {
 
       document.title = title;
       window.history.pushState(null, null, state);
-  }
+  }*/
 
 
 </script>
