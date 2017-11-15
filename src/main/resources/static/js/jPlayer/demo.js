@@ -24,20 +24,20 @@ $(document).ready(function(){
               {
                 title:"China-P",
                 artist:"徐梦圆",
-                mp3:"music/徐梦圆 - China-P.mp3",
-                poster: "images/m0.jpg"
+                mp3:"/upload/music/4199b5a0-9cef-434a-830f-32beae7d6deb.mp3",
+                poster: "/images/m0.jpg"
               }
             ];
             playlistOptions = {
                 enableRemoveControls: true,
-                autoPlay: false//自动播放
+                autoPlay: false//不自动播放false
             };
         } else {
             json = JSON.stringify(data);
             songsList = JSON.parse(json);
             playlistOptions = {
                 enableRemoveControls: true,
-                autoPlay: false//自动播放
+                autoPlay: false//自动播放true--项目完成时改为true
             };
         }
 
