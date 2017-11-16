@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" class="app">
 <head th:replace="common/links::head('云音乐')"></head>
@@ -23,34 +22,57 @@
 
 
                               <div class="col-md-7">
-                                  <h2><small><i class="fa icon-music-tone-alt text-danger"></i></small>&nbsp;&nbsp; Yesterday</h2>
+                                  <h2><i class="fa icon-music-tone-alt text-danger"></i>&nbsp;&nbsp; <span th:text="${musicInfo.musicName}">Yesterday</span></h2>
                                   <p>歌手：Anastasia Kushnir</p>
 
 
                                   <a class="btn btn-default">
-                                  <span class="text">
-                                    <i class="icon-control-play"></i> 播放
-                                  </span>
+                                      <span class="text">
+                                        <i class="icon-control-play"></i> 播放
+                                      </span>
                                   </a>
 
                                   <a class="btn btn-default">
-                                  <span class="text">
-                                    <i class="icon-cloud-download"></i> 下载
-                                  </span>
+                                      <span class="text">
+                                        <i class="icon-cloud-download"></i> 下载
+                                      </span>
                                   </a>
 
-                                  <a class="btn btn-default">
-                                  <span class="text">
-                                    <i class="fa fa-thumbs-up text-success"></i> 25
-                                  </span>
-                                  </a>
+                                  <!--判断用户是否登陆-->
+                                  <span th:if="${session.user} ==  null">
+                                      <button class="btn btn-default" th:onclick="'showLoginMsg()'">
+                                      <span class="text">
+                                        <i class="fa fa-thumbs-up text-success"></i> <span th:text="${musicInfo.like}">25</span>
+                                      </span>
+                                      </button>
 
 
-                                  <a class="btn btn-default">
-                                  <span class="text">
-                                    <i class="fa fa-thumbs-down text-danger"></i> 10
+                                      <button class="btn btn-default" th:onclick="'showLoginMsg()'">
+                                      <span class="text">
+                                        <i class="fa fa-thumbs-down text-danger"></i> <span th:text="${musicInfo.dislike}">10</span>
+                                      </span>
+                                      </button>
+
                                   </span>
-                                  </a>
+
+
+                                  <span th:if="${session.user} !=  null">
+                                      <button class="btn btn-default" th:onclick="'putEvaluate('+${musicInfo.mid}+','+${session.user.uid}+',0);'">
+                                      <span class="text">
+                                        <i class="fa fa-thumbs-up text-success"></i> <span id="like" th:text="${musicInfo.like}">25</span>
+                                      </span>
+                                      </button>
+
+
+                                      <button class="btn btn-default" th:onclick="'putEvaluate('+${musicInfo.mid}+','+${session.user.uid}+',1);'">
+                                      <span class="text">
+                                        <i class="fa fa-thumbs-down text-danger"></i> <span id="dislike" th:text="${musicInfo.dislike}">10</span>
+                                      </span>
+                                      </button>
+                                  </span>
+
+
+
 
                                   <!--歌词-->
                                   <div style="margin-top: 40px;">
@@ -68,26 +90,39 @@
                                       </div>
 
                                       <div style="margin-top: 10px;">
-                                          <a href="javascript:;">展开 <i class="fa fa-angle-down"></i></a>
+                                          <a id="showLyric" href="#collapseExample" data-toggle="collapse" onclick="clickShowLyric()" >展开 <i class="fa fa-angle-down"></i></a>
+
+                                          <!--隐藏起来的歌词-->
+                                          <div class="collapse" id="collapseExample">
+                                              <div>
+                                                  Coz the truth about where you been<br/>
+                                                  事实是无论你想说什么<br/>
+                                                  It was a fragrence I can't recognize..<br/>
+                                                  我都不明白你话中的含义<br/>
+                                                  Standing there<br/>
+                                                  你就站在那<br/>
+                                                  Scratching your head<br/>
+                                                  挠着你的头<br/>
+                                                  Blood shot eyes, drunk with regret<br/>
+                                                  充血的眼睛 懊恼的面容<br/>
+                                                  Hanging yourself , turn deep over the edge<br/>
+                                                  你挣扎着 最终坠入地狱<br/>
+                                                  I'm done with this<br/>
+                                                  我就是这么做的<br/>
+                                                  Feeling like an idiot<br/>
+                                                  如同一个白痴<br/>
+
+                                                  <a id="hideLyric" href="#collapseExample" data-toggle="collapse" onclick="clickHideLyric()" >收起 <i class="fa fa-angle-up"></i></a>
+
+                                              </div>
+                                          </div>
 
                                       </div>
                                   </div>
                               </div>
                           </div>
 
-                          <section class="panel panel-default pos-rlt clearfix">
-                              <header class="panel-heading">
-                                  <ul class="nav nav-pills pull-right">
-                                      <li>
-                                          <a href="#" class="panel-toggle text-muted">下拉实现</a>
-                                      </li>
-                                  </ul>
-                                  Dropdown
-                              </header>
-                              <div class="panel-body clearfix">
-                                  neirong
-                              </div>
-                          </section>
+
 
 
                           <div class="row" style="padding-left: 50px;margin-bottom: 80px;">
@@ -114,7 +149,7 @@
                                       </div>
                                       <div class="col-md-11">
                                           <p>
-                                              <a href="#">如花一般绽放丶</a>：
+                                              <a href="#" style="color: black;">如花一般绽放丶</a>：
                                               也许你现在仍然是一个人吃饭，一个人看电影，一个人发呆，一个人睡觉，一个人等天明。
                                               然而你却能一个人吃饭，一个人看电影，一个人发呆，一个人睡觉，一个人等天明。很多人离开另外一个人，
                                               就没有自己。而你却能够一个人，等天明。你的孤独，虽败犹荣。
@@ -177,4 +212,40 @@
     </section>    
   </section>
 </body>
+<script>
+    function clickShowLyric() {
+        $("#showLyric").attr("hidden","hidden");
+    }
+    function clickHideLyric() {
+        $("#showLyric").removeAttr("hidden","hidden");
+    }
+    function showLoginMsg() {
+        alert("只有登陆后才可以踩 / 顶哦~");
+    }
+
+    function putEvaluate(mid, uid, state) {
+
+        $.ajax({
+            type: "POST",
+            url: "/music/putEvaluate",
+            data: {'mid':mid,'uid':uid,'state':state},
+            success: function(result){
+                if (result) {
+                    //将歌曲数+1
+                    if (0 === state) {
+                        var like_num = $("#like").val();
+                        $("#like").html(like_num + 1);
+                    } else {
+                        var dislike_num = $("#dislike").val();
+                        $("#dislike").html(dislike_num + 1);
+                    }
+                    alert("点赞成功！");
+                } else {
+                    alert("您已点过赞了，不能重复点赞~");
+                }
+            }
+        });
+
+    }
+</script>
 </html>
