@@ -14,6 +14,7 @@
 * 暂时的一种思路：使用iframe可以实现，但是url一直不变，显然不现实。我们可以通过```window.history.pushState({},0,url);```来实现无刷新修改url，```/#/```后面接上相应的url，保证页面不会刷新，本项目不解析url。
 * 对于歌曲这一块我就不细分了，采用歌手 - 歌曲名.mp3这种形式作为测试，搜索也直接```%歌手```,这里就不做处理了。
 * 使用iframe需要注意的是父窗口与子窗口相互调用，```<iframe name="myFrame" src="child.html"></iframe> ``` 父窗口调用子窗口:```<iframe name="myFrame" src="child.html"></iframe> ``` 子窗品调用父窗口: ```<iframe name="myFrame" src="child.html"></iframe> ```
+* thymeleaf中调用js方法直接用```th:onclick="'putEvaluate(1,2,3);'"```，如果有参数可以用,如有参数就直接 ```th:onclick="'putEvaluate('+${musicInfo.mid}+',2,3);'"``` 在''中拼接好就行。
 
 
 
