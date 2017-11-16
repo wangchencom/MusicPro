@@ -2,11 +2,13 @@ package com.bfh.controller;
 
 import com.bfh.entity.Music;
 import com.bfh.service.MusicService;
+import com.bfh.vo.MusicVo;
 import com.bfh.vo.Song;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,13 +38,40 @@ public class MusicController {
 
 
 	/**
+	 * 用户顶/踩功能
+	 * @return 返回信息
+	 */
+	@RequestMapping("/music/putEvaluate")
+	public @ResponseBody
+	Boolean putEvaluate(Integer mid, Integer uid, Integer state) {
+
+		return musicService.putEvaluate(mid, uid, state);
+	}
+
+
+	/**
 	 * 音乐详情页面
 	 * @param id 音乐id
 	 * @return 音乐详情页面
 	 */
 	@RequestMapping("/music/musicInfo/{id}")
-	public String musicInfo(@PathVariable("id") Integer id) {
+	public String musicInfo(@PathVariable("id") Integer id, Model model) {
 		logger.info("musicInfo-->"+id);
+
+		//根据id增加点击量
+
+
+		//获取音乐信息
+		MusicVo musicInfo = musicService.getMusicInfo(id);
+		if (musicInfo != null) {
+			model.addAttribute("musicInfo", musicInfo);
+		} else {
+			//跳转到错误界面
+			//待添加错误信息
+			return "redirect:/404";
+		}
+
+		//获取评论
 
 		return "music/musicInfo";
 	}
@@ -52,8 +81,8 @@ public class MusicController {
 	 * 播放音乐模块
 	 */
 	@RequestMapping("/music/playMusic")
-	@ResponseBody
-	public String playMusic(HttpSession session,Integer id) {
+	public @ResponseBody
+	String playMusic(HttpSession session,Integer id) {
 		logger.info("playMusic-->"+id);
 		//返回歌曲名
 		Song song = musicService.getMusicById(id);
