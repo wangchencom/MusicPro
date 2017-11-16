@@ -9,10 +9,19 @@ import java.io.Serializable;
  */
 public class MusicVo implements Serializable{
 
+	private int mid;
 	private String musicName;
 	private int like;
 	private int dislike;
 
+
+	public int getMid() {
+		return mid;
+	}
+
+	public void setMid(int mid) {
+		this.mid = mid;
+	}
 
 	public String getMusicName() {
 		return musicName;
