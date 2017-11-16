@@ -6,6 +6,7 @@ import com.bfh.entity.User;
 import com.bfh.mapper.MusicInfoMapper;
 import com.bfh.mapper.MusicMapper;
 import com.bfh.service.MusicService;
+import com.bfh.vo.MusicVo;
 import com.bfh.vo.Song;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,37 @@ public class MusicServiceImpl implements MusicService {
 	@Autowired
 	private MusicInfoMapper musicInfoMapper;
 
+
+	@Override
+	public Boolean putEvaluate(Integer mid, Integer uid, Integer state) {
+		//非空判断
+		if (mid != 0 && uid != 0 && state != null) {
+
+			//先检查用户是否点过赞
+			Integer eid = musicMapper.checkEvaluate(mid, uid);
+			if (eid == null) {
+				//添加用户点赞记录
+				musicMapper.putEvaluate(mid, uid, state);
+
+				//更新like  dislike
+				if (state == 0) {
+					musicInfoMapper.updateLike(mid);
+				} else {
+					musicInfoMapper.updateDislike(mid);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public MusicVo getMusicInfo(Integer id) {
+		if (id != null && id != 0) {
+			return musicMapper.getMusicInfo(id);
+		}
+		return null;
+	}
 
 	@Override
 	public Song getMusicById(Integer id) {
