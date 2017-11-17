@@ -12,7 +12,6 @@ public class Content implements Serializable {
 
 	private int cid;
 	private int uid;
-	private String musicImage;
 	private int mid;
 	private String content;
 	private Date contentTime;
@@ -32,14 +31,6 @@ public class Content implements Serializable {
 
 	public void setUid(int uid) {
 		this.uid = uid;
-	}
-
-	public String getMusicImage() {
-		return musicImage;
-	}
-
-	public void setMusicImage(String musicImage) {
-		this.musicImage = musicImage;
 	}
 
 	public int getMid() {
