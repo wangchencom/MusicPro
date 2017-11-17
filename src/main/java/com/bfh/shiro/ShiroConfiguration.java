@@ -79,7 +79,9 @@ public class ShiroConfiguration {
 		filterChainDefinitionMap.put("/user/register", "anon");
 
 		filterChainDefinitionMap.put("/getSongs", "anon");
+		filterChainDefinitionMap.put("/searchResult", "anon");
 		filterChainDefinitionMap.put("/music/playMusic", "anon");
+		filterChainDefinitionMap.put("/music/searchMusic", "anon");
 		filterChainDefinitionMap.put("/music/musicInfo/**", "anon");
 		filterChainDefinitionMap.put("/music", "anon");
 		filterChainDefinitionMap.put("/main", "anon");
