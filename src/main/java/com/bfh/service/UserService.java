@@ -1,5 +1,6 @@
 package com.bfh.service;
 
+import com.bfh.entity.Content;
 import com.bfh.entity.User;
 import com.bfh.vo.RegisterVo;
 
@@ -9,6 +10,8 @@ import com.bfh.vo.RegisterVo;
  * @Description: 用户业务层接口
  */
 public interface UserService {
+
+	Boolean insertComment(Content content);
 
 	Boolean register(RegisterVo registerVo);
 

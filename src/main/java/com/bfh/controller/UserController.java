@@ -1,5 +1,6 @@
 package com.bfh.controller;
 
+import com.bfh.entity.Content;
 import com.bfh.entity.User;
 import com.bfh.service.UserService;
 import com.bfh.vo.RegisterVo;
@@ -30,6 +31,18 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+
+	/**
+	 * 用户添加评论
+	 * @param content 评论内容实体类
+	 * @return 添加评论是否成功，成功为true
+	 */
+	@RequestMapping("/user/addComment")
+	public @ResponseBody
+	Boolean insertComment(Content content) {
+		return userService.insertComment(content);
+	}
 
 
 	/**

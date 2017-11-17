@@ -1,7 +1,9 @@
 package com.bfh.service.impl;
 
+import com.bfh.entity.Content;
 import com.bfh.entity.User;
 import com.bfh.entity.UserGrade;
+import com.bfh.mapper.ContentMapper;
 import com.bfh.mapper.UserGradeMapper;
 import com.bfh.mapper.UserMapper;
 import com.bfh.service.UserService;
@@ -9,6 +11,8 @@ import com.bfh.vo.RegisterVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.Date;
 
 /**
  * @Author bfh
@@ -23,6 +27,22 @@ public class UserServiceImpl implements UserService {
 	private UserMapper userMapper;
 	@Autowired
 	private UserGradeMapper userGradeMapper;
+	@Autowired
+	private ContentMapper contentMapper;
+
+
+
+	@Override
+	public Boolean insertComment(Content content) {
+
+		if (!StringUtils.isEmpty(content.getContent()) && content.getUid() != 0 && content.getMid() != 0) {
+			content.setContentTime(new Date());
+			contentMapper.insertComment(content);
+			return true;
+		}
+		return false;
+	}
+
 
 	@Override
 	public Boolean register(RegisterVo registerVo) {
