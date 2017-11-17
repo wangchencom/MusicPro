@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" class="app">
+<head th:replace="common/links::head('云音乐')"></head>
+<body ondragstart="return false">
+
+  <section class="vbox">
+      <section class="scrollable">
+          <div class="container">
+
+
+              <section class="scrollable">
+                  <div class="m-t-n-xxs item pos-rlt">
+                      <div class="bottom gd bg-info wrapper-lg">
+                          <span class="pull-right text-sm"> <br/>music</span>
+                          <span class="h2 font-thin">发现好音乐</span>
+                      </div>
+                      <img class="img-full" src="/images/m42.jpg" alt="...">
+                  </div>
+
+                  <div th:if="${session.searchList} != null">
+                      <ul th:each="music:${session.searchList}" class="list-group list-group-lg no-radius no-border no-bg m-t-n-xxs m-b-none auto">
+
+
+
+
+                          <li class="list-group-item">
+                              <div class="pull-right m-l">
+                                  <a href="#" class="m-r-sm"><i class="icon-cloud-download"></i></a>
+                                  <a href="#" class="m-r-sm"><i class="icon-plus"></i></a>
+                                  <a href="#"><i class="icon-close"></i></a>
+                              </div>
+                              <a href="javascript:;" th:onclick="'parent.playMusic('+${music.mid}+')'"  class="jp-play-me m-r-sm pull-left">
+                                  <i class="icon-control-play text"></i>
+                                  <i class="icon-control-pause text-active"></i>
+                              </a>
+                              <div class="clear text-ellipsis">
+                                  <span th:text="${music.musicName}">歌名</span>
+                              </div>
+                          </li>
+
+
+
+
+                      </ul>
+                  </div>
+
+              </section>
+          </div>
+      </section>
+  </section>
+</body>
+</html>
