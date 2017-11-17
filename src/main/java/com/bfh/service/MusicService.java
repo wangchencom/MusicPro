@@ -1,8 +1,11 @@
 package com.bfh.service;
 
 import com.bfh.entity.Music;
+import com.bfh.vo.ContentVo;
 import com.bfh.vo.MusicVo;
 import com.bfh.vo.Song;
+
+import java.util.List;
 
 /**
  * @Author bfh
@@ -10,6 +13,10 @@ import com.bfh.vo.Song;
  * @Description 音乐业务层接口
  */
 public interface MusicService {
+
+	List<Music> searchMusic(String searchText);
+
+	List<ContentVo> getContentByMid(Integer mid);
 
 	Boolean putEvaluate(Integer mid, Integer uid, Integer state);
 

@@ -3,16 +3,22 @@ package com.bfh.service.impl;
 import com.bfh.entity.Music;
 import com.bfh.entity.MusicInfo;
 import com.bfh.entity.User;
+import com.bfh.mapper.ContentMapper;
 import com.bfh.mapper.MusicInfoMapper;
 import com.bfh.mapper.MusicMapper;
+import com.bfh.mapper.UserGradeMapper;
 import com.bfh.service.MusicService;
+import com.bfh.utils.ConstUtil;
+import com.bfh.vo.ContentVo;
 import com.bfh.vo.MusicVo;
 import com.bfh.vo.Song;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author bfh
@@ -26,7 +32,28 @@ public class MusicServiceImpl implements MusicService {
 	private MusicMapper musicMapper;
 	@Autowired
 	private MusicInfoMapper musicInfoMapper;
+	@Autowired
+	private ContentMapper contentMapper;
+	@Autowired
+	private UserGradeMapper userGradeMapper;
 
+
+	@Override
+	public List<Music> searchMusic(String searchText) {
+		List<Music> list = null;
+		if (!StringUtils.isEmpty(searchText)) {
+			list = musicMapper.searchMusic(searchText);
+		}
+		return list;
+	}
+
+	@Override
+	public List<ContentVo> getContentByMid(Integer mid) {
+		if (mid != 0) {
+			return contentMapper.getContentByMid(mid);
+		}
+		return null;
+	}
 
 	@Override
 	public Boolean putEvaluate(Integer mid, Integer uid, Integer state) {
@@ -82,6 +109,9 @@ public class MusicServiceImpl implements MusicService {
 		musicInfo.setLike(0);
 		musicInfo.setDislike(0);
 		musicInfoMapper.insertMusicInfo(musicInfo);
+
+		//用户积分添加
+		userGradeMapper.updateScore(ConstUtil.UPLOAD_MUSIC_SCORE, user.getUid());
 
 	}
 }
