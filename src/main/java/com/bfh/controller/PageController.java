@@ -14,6 +14,16 @@ public class PageController {
 
 
 	/**
+	 * 跳转到歌曲搜索结果界面
+	 */
+	@RequestMapping("/searchResult")
+	public String searchResult() {
+		return "music/searchResult";
+	}
+
+
+
+	/**
 	 * 跳转到用户详情界面
 	 */
 	@RequestMapping("/user/profile")
