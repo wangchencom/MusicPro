@@ -14,6 +14,9 @@ import java.util.List;
  */
 public interface MusicService {
 
+
+	Music downloadMusic(Integer mid);
+
 	List<Music> searchMusic(String searchText);
 
 	List<ContentVo> getContentByMid(Integer mid);
