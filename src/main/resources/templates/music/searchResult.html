@@ -25,7 +25,11 @@
 
                           <li class="list-group-item">
                               <div class="pull-right m-l">
-                                  <a href="#" class="m-r-sm"><i class="icon-cloud-download"></i></a>
+
+                                  <a th:if="${session.user} == null" href="javascript:;" onclick="parent.downloadMessage()" class="m-r-sm"><i class="icon-cloud-download"></i></a>
+                                  <a th:if="${session.user} != null" th:href="@{'/music/download/'+${music.mid}}" class="m-r-sm"><i class="icon-cloud-download"></i></a>
+
+
                                   <a href="#" class="m-r-sm"><i class="icon-plus"></i></a>
                                   <a href="#"><i class="icon-close"></i></a>
                               </div>
