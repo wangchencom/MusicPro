@@ -26,6 +26,15 @@
 
 @ResultMap("myMap")
 ```
+* 基于ResponseEntity下载文件局限性还是很大，因为这种下载方式是一种一次性读取的下载方式，在文件较大的时候会直接抛出内存溢出，因为是歌曲，所以暂时就采用这种简介的方式实现。
+* Springmvc使用ResponseEntity<byte[]>下载时，可以用通过HttpHeaders来做相关设置
+```
+headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+headers.setContentDispositionFormData("attachment", new String(str.getBytes("UTF-8"), "ISO8859-1"));
+```
+
+
+* 关于Thymeleaf的```th:href```，一般写法为```th:href="@{/music/download(mid=${musicInfo.mid})}"```，Restful风格的写法为```th:href="@{'/music/download/'+${musicInfo.mid}}"```
 
 
 
