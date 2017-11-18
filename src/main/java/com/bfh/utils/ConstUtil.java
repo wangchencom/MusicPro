@@ -15,7 +15,7 @@ public class ConstUtil {
 
 	public static int UPLOAD_MUSIC_SCORE = 10;
 
-	public static int DOWNLOADMUSIC_SCORE = 5;
+	public static int DOWNLOAD_MUSIC_SCORE = 5;
 
 
 	public static int LV1 = 200;
@@ -23,5 +23,7 @@ public class ConstUtil {
 	public static int LV3 = 1500;
 	public static int LV4 = 3000;
 	public static int LV5 = 5000;
+
+	public static String REAL_FILE_PATH = "E:\\upload\\MusicPro\\music\\";
 
 }
