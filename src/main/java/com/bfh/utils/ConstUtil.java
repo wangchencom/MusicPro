@@ -18,6 +18,7 @@ public class ConstUtil {
 	public static int DOWNLOAD_MUSIC_SCORE = 5;
 
 
+	//用户等级LV
 	public static int LV1 = 200;
 	public static int LV2 = 600;
 	public static int LV3 = 1500;
