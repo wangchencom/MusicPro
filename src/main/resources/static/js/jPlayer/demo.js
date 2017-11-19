@@ -19,7 +19,7 @@ $(document).ready(function(){
     //获取歌曲列表并初始化播放器
     $.get("/getSongs", function(data){
 
-        if (data.length === 0) {//默认歌曲列表
+        if (data.length < 1) {//默认歌曲列表
             songsList = [
               {
                 title:"China-P",
@@ -37,7 +37,7 @@ $(document).ready(function(){
             songsList = JSON.parse(json);
             playlistOptions = {
                 enableRemoveControls: true,
-                autoPlay: false//自动播放true--项目完成时改为true
+                autoPlay: true//自动播放true--项目完成时改为true
             };
         }
 
