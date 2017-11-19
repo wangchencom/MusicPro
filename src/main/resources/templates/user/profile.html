@@ -31,14 +31,14 @@
                                               <div class="row text-center">
                                                   <div class="col-xs-6">
                                                       <a href="#">
-                                                          <span class="m-b-xs h4 block">245</span>
-                                                          <small class="text-muted">鲜花</small>
+                                                          <span class="m-b-xs h4 block">LV<span th:text="${session.userGrade.grade}"></span></span>
+                                                          <small class="text-muted">等级</small>
                                                       </a>
                                                   </div>
                                                   <div class="col-xs-6">
                                                       <a href="#">
-                                                          <span class="m-b-xs h4 block">55</span>
-                                                          <small class="text-muted">粉丝</small>
+                                                          <span class="m-b-xs h4 block"><span th:text="${session.userGrade.score}"></span></span>
+                                                          <small class="text-muted">积分</small>
                                                       </a>
                                                   </div>
                                               </div>
