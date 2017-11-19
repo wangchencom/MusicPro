@@ -23,7 +23,7 @@
 
                               <div class="col-md-7">
                                   <h2><i class="fa icon-music-tone-alt text-danger"></i>&nbsp;&nbsp; <span th:text="${musicInfo.musicName}">Yesterday</span></h2>
-                                  <p>歌手：Anastasia Kushnir</p>
+                                  <!--<p>歌手：Anastasia Kushnir</p>-->
 
 
                                   <a class="btn btn-default">
@@ -32,11 +32,18 @@
                                       </span>
                                   </a>
 
-                                  <a class="btn btn-default">
+                                  <a th:if="${session.user} == null" href="javascript:;" onclick="parent.downloadMessage()" class="btn btn-default">
                                       <span class="text">
                                         <i class="icon-cloud-download"></i> 下载
                                       </span>
                                   </a>
+
+                                  <a th:if="${session.user} != null" th:href="@{'/music/download/'+${musicInfo.mid}}" class="btn btn-default">
+                                      <span class="text">
+                                        <i class="icon-cloud-download"></i> 下载
+                                      </span>
+                                  </a>
+
 
                                   <!--判断用户是否登陆-->
                                   <span th:if="${session.user} ==  null">
@@ -168,18 +175,12 @@
                                       </div>
                                   </div>
 
-
-
-
-
-
-
-
+                                  <div th:if="${contentVos.size()} == 0" style="text-align: center;">
+                                      <h4>暂无评论...</h4>
+                                  </div>
                               </div>
                           </div>
                       </div>
-
-
 
 
                   </section>
@@ -248,12 +249,8 @@
                     alert("评论添加失败！");
                 }
             }
-
         });
-
-
-
-
     }
+
 </script>
 </html>
