@@ -48,6 +48,21 @@
       $('#mainUI').attr('src','/main');
   });
 
+  //点击播放音乐
+  function playMusic(id) {
+      $.ajax({
+          type: "POST",
+          url: "/music/playMusic",
+          data: {'id':id},
+          success: function(data){
+              //parent.changeParentUI(data,'/#/music/playMusic'+data);
+              parent.changeMusic('/music');
+              //跳转到歌曲详情页面
+              parent.changeMainUI('/music/musicInfo/'+id, data);
+          }
+      });
+  }
+
   function changeMusic(url) {
       $('#musicUI').attr('src',url);
   }
@@ -59,12 +74,48 @@
       window.history.pushState(null, null, '/#'+url);
   }
 
-/*  //通过url改变父窗口内容
-  function changeParentUI(title,state) {
+//  //通过url改变父窗口内容
+//  function changeParentUI(title,state) {
+//
+//      document.title = title;
+//      window.history.pushState(null, null, state);
+//  }
 
-      document.title = title;
-      window.history.pushState(null, null, state);
-  }*/
+  //搜索歌曲功能[
+  function searchMusic() {
+      var searchText = $("#searchText").val();
+      if ("" !== searchText) {
+          //发送ajax，进行异步搜索
+          $.ajax({
+              type:'POST',
+              url:'/music/searchMusic',
+              data:{'searchText':searchText},
+              success:function (result) {
+                  if (result) {
+                      //页面跳转
+                      changeMainUI("/searchResult","搜索结果");
+                  } else {
+                      alert("没有搜索到【 "+searchText+" 】相关的歌曲~");
+                  }
+              }
+          });
+      } else {
+          alert("请输入搜索内容~");
+      }
+
+      return false;
+  }
+  
+  
+  function downloadMessage() {
+      alert("只有登陆后才可以下载歌曲哦~");
+  }
+  
+  function myIndex() {
+      $('#mainUI').attr('src',"/main");
+      document.title = "发现好音乐";
+      window.history.pushState(null, null, '/#/index');
+  }
 
 
 </script>
