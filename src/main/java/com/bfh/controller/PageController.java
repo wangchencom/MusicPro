@@ -1,7 +1,13 @@
 package com.bfh.controller;
 
+import com.bfh.service.MusicService;
+import com.bfh.vo.MusicTopVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author bfh
@@ -12,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PageController {
 
+	@Autowired
+	private MusicService musicService;
 
 	/**
 	 * 跳转到歌曲搜索结果界面
@@ -20,8 +28,6 @@ public class PageController {
 	public String searchResult() {
 		return "music/searchResult";
 	}
-
-
 
 	/**
 	 * 跳转到用户详情界面
@@ -47,13 +53,6 @@ public class PageController {
 		return "login";
 	}
 
-	/**
-	 * 跳转到首页
-	 */
-	@RequestMapping({"/","/index"})
-	public String index() {
-		return "index";
-	}
 
 	/**
 	 * 跳转到404界面
@@ -71,8 +70,37 @@ public class PageController {
 		return "music";
 	}
 
+	/**
+	 * 跳转到内容页
+	 */
 	@RequestMapping("/main")
 	public String main() {
 		return "main";
+	}
+
+	/**
+	 * 跳转到首页
+	 */
+	@RequestMapping({"/","/index"})
+	public String index(HttpSession session) {
+		//初始化内容页内容
+
+		//暂时不做缓存处理
+		List<MusicTopVo> likeTops = musicService.getLikeTop();
+		if (likeTops != null) {
+			session.setAttribute("likeTops", likeTops);
+		}
+
+		List<MusicTopVo> uploadTops = musicService.getUploadTop();
+		if (uploadTops != null) {
+			session.setAttribute("uploadTops", uploadTops);
+		}
+
+		List<MusicTopVo> clickRateTops = musicService.getClickRateTop();
+		if (clickRateTops != null) {
+			session.setAttribute("clickRateTops", clickRateTops);
+		}
+
+		return "index";
 	}
 }
