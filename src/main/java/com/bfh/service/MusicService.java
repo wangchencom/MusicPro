@@ -2,6 +2,7 @@ package com.bfh.service;
 
 import com.bfh.entity.Music;
 import com.bfh.vo.ContentVo;
+import com.bfh.vo.MusicTopVo;
 import com.bfh.vo.MusicVo;
 import com.bfh.vo.Song;
 
@@ -15,7 +16,6 @@ import java.util.List;
 public interface MusicService {
 
 
-	Music downloadMusic(Integer mid);
 
 	List<Music> searchMusic(String searchText);
 
