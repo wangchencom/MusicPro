@@ -63,3 +63,31 @@ headers.setContentDispositionFormData("attachment", new String(str.getBytes("UTF
    }
 ```
 
+* SpringBoot 在项目启动时执行的特定方法（这里用作网页首页内容初始化），可以通过ApplicationRunner和CommandLineRunner实现，如下：
+CommandLineRunner ：
+```
+@Component
+public class MyCommandLineRunner implements CommandLineRunner{
+
+    @Override
+    public void run(String... var1) throws Exception{
+        System.out.println("This will be execute when the project was started!");
+    }
+}
+
+```
+ApplicationRunner ：
+```
+
+@Component
+public class MyApplicationRunner implements ApplicationRunner {
+
+    @Override
+    public void run(ApplicationArguments var1) throws Exception{
+        System.out.println("MyApplicationRunner class will be execute when the project was started!");
+    }
+
+```
+
+* ```<tr th:each="user,userStat:${users}"></tr>``` ,userStat是状态变量，有 index,count,size,current,even,odd,first,last等属性，如果没有显示设置状态变量，thymeleaf会默 认给个“变量名+Stat"的状态变量。
+* 关于Thymeleaf的```th:href```，一般写法为```th:href="@{/music/download(mid=${musicInfo.mid})}"```，Restful风格的写法为```th:href="@{'/music/download/'+${musicInfo.mid}}"```
