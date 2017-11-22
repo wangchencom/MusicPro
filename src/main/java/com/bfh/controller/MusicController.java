@@ -2,11 +2,17 @@ package com.bfh.controller;
 
 import com.bfh.entity.Music;
 import com.bfh.service.MusicService;
+import com.bfh.utils.GetRealPathUitl;
+import com.bfh.vo.ContentVo;
 import com.bfh.vo.MusicVo;
 import com.bfh.vo.Song;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
@@ -35,6 +40,28 @@ public class MusicController {
 
 	@Autowired
 	private MusicService musicService;
+
+
+
+
+
+
+	/**
+	 * 音乐搜索功能 - 暂时不做分页
+	 * 分页可以试试前端js实现
+	 * @return 返回搜索信息
+	 */
+	@RequestMapping("/music/searchMusic")
+	public @ResponseBody
+	Boolean searchMusic(String searchText, HttpSession session) {
+
+		List<Music> list = musicService.searchMusic(searchText);
+		if (list != null) {
+			session.setAttribute("searchList", list);
+			return true;
+		}
+		return false;
+	}
 
 
 	/**
@@ -59,7 +86,7 @@ public class MusicController {
 		logger.info("musicInfo-->"+id);
 
 		//根据id增加点击量
-
+		musicService.updateClickRate(id);
 
 		//获取音乐信息
 		MusicVo musicInfo = musicService.getMusicInfo(id);
@@ -72,6 +99,11 @@ public class MusicController {
 		}
 
 		//获取评论
+		List<ContentVo> contentVos = musicService.getContentByMid(id);
+		if (contentVos != null) {
+			model.addAttribute("contentVos", contentVos);
+		}
+
 
 		return "music/musicInfo";
 	}
@@ -88,9 +120,10 @@ public class MusicController {
 		Song song = musicService.getMusicById(id);
 		//更新正在播放歌曲列表
 		List<Song> songs = (List<Song>) session.getAttribute("songs");
-		//添加元素到栈顶
-		songs.add(0,song);
-
+		if (songs != null) {
+			//添加元素到栈顶
+			songs.add(0,song);
+		}
 		return song.getTitle();
 	}
 
