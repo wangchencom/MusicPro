@@ -42,7 +42,34 @@ public class MusicController {
 	private MusicService musicService;
 
 
+	@RequestMapping("/music/download/{mid}")
+	public ResponseEntity<byte[]> downloadMusic(@PathVariable("mid") Integer mid) throws IOException {
 
+		Music music = musicService.downloadMusic(mid);
+		if (music != null) {
+			String musicPath = music.getPathName();
+			String filePath = GetRealPathUitl.getRealPath(musicPath);
+
+			File file = new File(filePath);
+			byte[] body = null;
+			InputStream is = new FileInputStream(file);
+			body = new byte[is.available()];
+			is.read(body);
+			HttpHeaders headers = new HttpHeaders();
+			String realName = music.getMusicName()+"."+file.getName().split("\\.")[1];
+			String str = new String(realName.getBytes(),"utf-8");
+			headers.add("Content-Disposition", "attchement;filename=" + str);
+
+			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			headers.setContentDispositionFormData("attachment", new String(str.getBytes("UTF-8"), "ISO8859-1"));
+
+			HttpStatus statusCode = HttpStatus.OK;
+			ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+			return entity;
+		}
+
+		return null;
+	}
 
 
 
