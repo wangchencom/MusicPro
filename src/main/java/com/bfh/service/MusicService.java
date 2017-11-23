@@ -17,6 +17,14 @@ public interface MusicService {
 
 
 
+
+
+
+
+	void updateClickRate(Integer mid);
+
+	Music downloadMusic(Integer mid);
+
 	List<Music> searchMusic(String searchText);
 
 	List<ContentVo> getContentByMid(Integer mid);

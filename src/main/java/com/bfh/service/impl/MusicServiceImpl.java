@@ -40,6 +40,35 @@ public class MusicServiceImpl implements MusicService {
 
 
 
+	@Override
+	public void updateClickRate(Integer mid) {
+		if (mid != null) {
+			musicMapper.updateClickRate(mid);
+		}
+	}
+
+	@Override
+	public Music downloadMusic(Integer mid) {
+		if (mid != null && mid != 0) {
+
+			User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+			//下载前检查积分够不够
+			Integer score = userGradeMapper.getScoreByUid(user.getUid());
+			int currentScore = score - ConstUtil.DOWNLOAD_MUSIC_SCORE;
+			if (currentScore < 0) {
+				return null;
+			}
+			Music music = musicMapper.downloadMusic(mid);
+			//更新下载次数
+			musicInfoMapper.updateDownload(mid);
+			//下载积分扣除
+
+			userGradeMapper.deductionScore(ConstUtil.DOWNLOAD_MUSIC_SCORE, user.getUid());
+
+			return music;
+		}
+		return null;
+	}
 
 	@Override
 	public List<Music> searchMusic(String searchText) {
