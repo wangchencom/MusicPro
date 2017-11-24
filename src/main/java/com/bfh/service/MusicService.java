@@ -15,7 +15,11 @@ import java.util.List;
  */
 public interface MusicService {
 
+	List<MusicTopVo> getLikeTop();
 
+	List<MusicTopVo> getUploadTop();
+
+	List<MusicTopVo> getClickRateTop();
 
 
 
