@@ -39,6 +39,20 @@ public class MusicServiceImpl implements MusicService {
 	private UserGradeMapper userGradeMapper;
 
 
+	@Override
+	public List<MusicTopVo> getLikeTop() {
+		return musicMapper.getLikeTop();
+	}
+
+	@Override
+	public List<MusicTopVo> getUploadTop() {
+		return musicMapper.getUploadTop();
+	}
+
+	@Override
+	public List<MusicTopVo> getClickRateTop() {
+		return musicMapper.getClickRateTop();
+	}
 
 	@Override
 	public void updateClickRate(Integer mid) {
