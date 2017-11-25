@@ -2,6 +2,7 @@ package com.bfh.controller;
 
 import com.bfh.entity.Content;
 import com.bfh.entity.User;
+import com.bfh.entity.UserGrade;
 import com.bfh.service.UserService;
 import com.bfh.vo.RegisterVo;
 import org.apache.shiro.SecurityUtils;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -75,12 +78,22 @@ public class UserController {
 	 * @return 页面转发/重定向
 	 */
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
-	public String login(RedirectAttributes model, User user) {
+	public String login(RedirectAttributes model, HttpSession session, User user) {
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(user.getEmail(), user.getUserPassword());
 		try {
 			subject.login(token);
 			logger.info("-->登陆成功");
+
+			//用户登陆成功后更新用户等级
+			userService.updateUserGrade();
+
+			//获取用户等级与积分
+			UserGrade userGrade = userService.getUserGrade();
+			if (userGrade != null) {
+				session.setAttribute("userGrade", userGrade);
+			}
+
 		} catch (AuthenticationException e) {
 			e.printStackTrace();
 			logger.info("-->登陆失败");
