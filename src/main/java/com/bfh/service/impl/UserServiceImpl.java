@@ -7,7 +7,9 @@ import com.bfh.mapper.ContentMapper;
 import com.bfh.mapper.UserGradeMapper;
 import com.bfh.mapper.UserMapper;
 import com.bfh.service.UserService;
+import com.bfh.utils.ConstUtil;
 import com.bfh.vo.RegisterVo;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -30,6 +32,32 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private ContentMapper contentMapper;
 
+
+	@Override
+	public void updateUserGrade() {
+		User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+		UserGrade userGrade = userGradeMapper.getUserGrade(user.getUid());
+
+		int newGrade = 1;
+		int score = userGrade.getScore();
+
+		if (0 <= score && score <= ConstUtil.LV1) {
+			newGrade = 1;
+		} else if (ConstUtil.LV1 < score && score <= ConstUtil.LV2) {
+			newGrade = 2;
+		} else if (ConstUtil.LV2 < score && score <= ConstUtil.LV3) {
+			newGrade = 3;
+		} else if (ConstUtil.LV3 < score && score <= ConstUtil.LV4) {
+			newGrade = 4;
+		} else if (ConstUtil.LV4 < score && score <= ConstUtil.LV5) {
+			newGrade = 5;
+		} else if (ConstUtil.LV5 < score) {
+			newGrade = 5;
+		}
+		userGradeMapper.updateUserGrade(newGrade, user.getUid());
+
+
+	}
 
 
 	@Override
