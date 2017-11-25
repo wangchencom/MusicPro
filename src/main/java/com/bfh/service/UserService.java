@@ -14,7 +14,7 @@ public interface UserService {
 
 	void updateUserGrade();
 
-
+	UserGrade getUserGrade();
 
 	Boolean insertComment(Content content);
 

@@ -59,6 +59,11 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public UserGrade getUserGrade() {
+		User user = (User) SecurityUtils.getSubject().getSession().getAttribute("user");
+		return userGradeMapper.getUserGrade(user.getUid());
+	}
 
 	@Override
 	public Boolean insertComment(Content content) {
