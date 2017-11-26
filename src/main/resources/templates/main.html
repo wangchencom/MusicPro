@@ -7,7 +7,7 @@
 
       <section class="scrollable padder-lg w-f-md" id="bjax-target">
 
-          <h2 class="font-thin m-b">一周热升榜
+          <h2 class="font-thin m-b">热升榜
               <!-- <span class="musicbar animate inline m-l-sm" style="width:20px;height:20px">
                 <span class="bar1 a1 bg-primary lter"></span>
                 <span class="bar2 a2 bg-info lt"></span>
@@ -18,40 +18,27 @@
           </h2>
 
 
-          <div class="row">
-              <div class="col-md-2">
-                  <div class="item">
-                      <div class="pos-rlt">
-                          <div class="item-overlay opacity r r-2x bg-black">
+          <div th:if="${session.likeTops} != null" class="row">
+
+              <div th:each="likeTop:${session.likeTops}">
+                  <div class="col-md-2">
+                      <div class="item">
+                          <div class="pos-rlt">
+                              <div class="item-overlay opacity r r-2x bg-black">
 
 
-                              <div class="text-info padder m-t-sm text-sm">
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star"></i>
-                                  <i class="fa fa-star-o text-muted"></i>
+                                  <div class="center text-center m-t-n">
+                                      <a href="javascript:;" th:onclick="'parent.playMusic('+${likeTop.mid}+')'"><i class="icon-control-play i-2x"></i></a>
+                                  </div>
+
+
+
                               </div>
-
-                              <div class="center text-center m-t-n">
-                                  <a href="#"><i class="icon-control-play i-2x"></i></a>
-                              </div>
-
-                              <div class="bottom padder m-b-sm">
-                                  <a href="#" class="pull-right">
-                                      <i class="fa fa-heart-o"></i>
-                                  </a>
-                                  <a href="#">
-                                      <i class="fa fa-plus-circle"></i>
-                                  </a>
-                              </div>
-
+                              <a href="#"><img th:src="${likeTop.musicImage}" src="/images/p8.jpg" alt="" class="r r-2x img-full"></a>
                           </div>
-                          <a href="#"><img src="/images/p8.jpg" alt="" class="r r-2x img-full"></a>
-                      </div>
-                      <div class="padder-v">
-                          <a href="#" class="text-ellipsis">china-P</a>
-                          <a href="#" class="text-ellipsis text-xs text-muted">徐梦圆</a>
+                          <div class="padder-v">
+                              <span class="text-ellipsis" th:text="${likeTop.musicName}">china-P</span>
+                          </div>
                       </div>
                   </div>
               </div>
@@ -59,63 +46,55 @@
 
 
           <div class="row">
-              <div class="col-md-7">
+
+
+
+              <div th:if="${session.uploadTops} != null"  class="col-md-7">
                   <h3 class="font-thin">新歌榜单</h3>
                   <div class="row row-sm">
-                      <div class="col-xs-6 col-sm-3">
+                      <div th:each="uploadTop:${session.uploadTops}"  class="col-xs-6 col-sm-3">
                           <div class="item">
                               <div class="pos-rlt">
                                   <div class="item-overlay opacity r r-2x bg-black">
                                       <div class="center text-center m-t-n">
-                                          <a href="#"><i class="fa fa-play-circle i-2x"></i></a>
+                                          <a href="javascript:;" th:onclick="'parent.playMusic('+${uploadTop.mid}+')'"><i class="fa fa-play-circle i-2x"></i></a>
                                       </div>
                                   </div>
-                                  <a href="#"><img src="/images/m7.jpg" alt="" class="r r-2x img-full"></a>
+                                  <a href="#"><img th:src="${uploadTop.musicImage}" src="/images/m7.jpg" alt="" class="r r-2x img-full"></a>
                               </div>
                               <div class="padder-v">
-                                  <a href="#" class="text-ellipsis">china-P</a>
-                                  <a href="#" class="text-ellipsis text-xs text-muted">徐梦圆</a>
+                                  <span class="text-ellipsis" th:text="${uploadTop.musicName}">china-P</span>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
 
-              <div class="col-md-5">
-                  <h3 class="font-thin">一周Top榜</h3>
-                  <div class="list-group bg-white list-group-lg no-bg auto">
-                      <a href="javascript:;" onclick="playMusic('5')" class="list-group-item clearfix">
-                          <span class="pull-right h2 text-muted m-l">1</span>
+
+
+              <div th:if="${session.clickRateTops} != null" class="col-md-5">
+                  <h3 class="font-thin">Top10</h3>
+
+                  <div th:each="clickRateTop,clickRateTopStat:${session.clickRateTops}" class="list-group bg-white list-group-lg no-bg auto">
+                      <a href="javascript:;" th:onclick="'parent.playMusic('+${clickRateTop.mid}+')'" class="list-group-item clearfix">
+                          <span th:text="${clickRateTopStat.index + 1}" class="pull-right h2 text-muted m-l">1</span>
                           <span class="pull-left thumb-sm avatar m-r">
-                            <img src="/images/m8.jpg" alt="...">
+                            <img th:src="${clickRateTop.musicImage}" src="/images/m8.jpg" alt="...">
                           </span>
                           <span class="clear">
-                            <span>china-P</span>
-                            <small class="text-muted clear text-ellipsis">徐梦圆</small>
-
+                            <span th:text="${clickRateTop.musicName}">china-P</span>
                           </span>
                       </a>
                   </div>
               </div>
+
+
           </div>
       </section>
 
   </section>
 </body>
 <script>
-    //点击播放音乐
-    function playMusic(id) {
-        $.ajax({
-            type: "POST",
-            url: "/music/playMusic",
-            data: {'id':id},
-            success: function(data){
-                //parent.changeParentUI(data,'/#/music/playMusic'+data);
-                parent.changeMusic('/music');
-                //跳转到歌曲详情页面
-                parent.changeMainUI('/music/musicInfo/'+id, data);
-            }
-        });
-    }
+
 </script>
 </html>
