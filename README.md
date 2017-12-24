@@ -28,7 +28,9 @@
 
 
 ### 小技巧：
-* 使用iframe需要注意的是父窗口与子窗口相互调用，```<iframe name="myFrame" src="child.html"></iframe> ``` 父窗口调用子窗口:```<iframe name="myFrame" src="child.html"></iframe> ``` 子窗品调用父窗口: ```<iframe name="myFrame" src="child.html"></iframe> ```
+* * 使用iframe需要注意的是父窗口与子窗口相互调用：
+  	- 父窗口调用子窗口方法：document.getElementById("iframe的id").contentWindow.子窗体方法名();
+  	- 子窗口调用父窗口方法：window.parent.父窗体方法名();
 * thymeleaf中调用js方法直接用```th:onclick="'putEvaluate(1,2,3);'"```，如果有参数可以用,如有参数就直接 ```th:onclick="'putEvaluate('+${musicInfo.mid}+',2,3);'"``` 在''中拼接好就行。
 *  Mybatis给我们提供了一种映射方式，如果属性的命名是遵从驼峰命名法的，数据列名遵从下划线命名。MyBatis支持使用注解来配置映射语句。为了代码复用，我们可以通过id引用这个resultMap
 ```
