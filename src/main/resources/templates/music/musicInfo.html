@@ -175,7 +175,7 @@
                                       </div>
                                   </div>
 
-                                  <div th:if="${contentVos.size()} == 0" style="text-align: center;">
+                                  <div id="NoContentDIv" th:if="${contentVos.size()} == 0" style="text-align: center;">
                                       <h4>暂无评论...</h4>
                                   </div>
                               </div>
@@ -244,6 +244,7 @@
                     var userImage = $("#userCommentImage").val();
                     var userName = $("#userName").val();
                     $("#newCommont").after('<div class="row"><div class="col-md-1"><img src="'+userImage+'" alt="..." style="width: 70px;height: 70px;"></div><div class="col-md-11"><p><a href="#" style="color: black;">'+userName+'</a>：'+comment+'</p></div></div><div style="background-color: gray;width: 100%;height: 1px;margin-bottom: 15px;margin-top: 15px;"></div>');
+                    $("#NoContentDIv").attr("hidden","hidden");
                     alert("评论添加成功！");
                 } else {
                     alert("评论添加失败！");
