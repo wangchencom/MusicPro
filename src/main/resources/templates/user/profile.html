@@ -19,8 +19,8 @@
                                   <section class="scrollable">
                                       <div class="wrapper">
                                           <div class="text-center m-b m-t">
-                                              <a href="#" class="thumb-lg">
-                                                  <img src="/images/m0.jpg" class="img-circle">
+                                              <a th:if="${session.user} != null" href="#" class="thumb-lg">
+                                                  <img src="/images/m0.jpg" th:src="${session.user.userImage}" class="img-circle">
                                               </a>
                                               <div>
                                                   <div th:text="${session.user.userName}" class="h3 m-t-xs m-b-xs">夏天</div>
