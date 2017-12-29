@@ -16,7 +16,23 @@ import java.util.List;
 public interface MusicMapper {
 
 
+	@Select("SELECT m.`mid`,m.`music_name`,mi.`musicImage`, mi.`user_like` FROM t_music m LEFT JOIN t_music_info mi ON m.`mid` = mi.`mid` LIMIT 10")
+	@Results(id = "MusicTopVoMap", value = {
+			@Result(property = "mid", column = "mid"),
+			@Result(property = "musicName", column = "music_name"),
+			@Result(property = "musicImage", column = "musicImage")
+	})
+	List<MusicTopVo> getLikeTop();
 
+
+	@Select("SELECT m.`mid`,m.`music_name`,mi.`musicImage`, m.`upload_time` FROM t_music m LEFT JOIN t_music_info mi ON m.`mid` = mi.`mid` ORDER BY m.`upload_time` DESC LIMIT 10")
+	@ResultMap("MusicTopVoMap")
+	List<MusicTopVo> getUploadTop();
+
+
+	@Select("SELECT m.`mid`,m.`music_name`,mi.`musicImage`, mi.`clickRate` FROM t_music m LEFT JOIN t_music_info mi ON m.`mid` = mi.`mid` ORDER BY mi.`clickRate` DESC LIMIT 10")
+	@ResultMap("MusicTopVoMap")
+	List<MusicTopVo> getClickRateTop();
 
 
 	@Update("UPDATE t_music_info SET clickRate = clickRate + 1 WHERE MID = #{mid}")
