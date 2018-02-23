@@ -2,7 +2,10 @@ package com.bfh.controller;
 
 import com.bfh.service.MusicService;
 import com.bfh.vo.MusicTopVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,8 +21,14 @@ import java.util.List;
 @Controller
 public class PageController {
 
+
+	private Logger logger =  LoggerFactory.getLogger(this.getClass());
+
+
 	@Autowired
 	private MusicService musicService;
+	@Autowired
+	private RedisTemplate<String, List<MusicTopVo>> redisTemplate;
 
 	/**
 	 * 跳转到歌曲搜索结果界面
@@ -83,22 +92,41 @@ public class PageController {
 	 */
 	@RequestMapping({"/","/index"})
 	public String index(HttpSession session) {
-		//初始化内容页内容
 
-		//暂时不做缓存处理
-		List<MusicTopVo> likeTops = musicService.getLikeTop();
-		if (likeTops != null) {
-			session.setAttribute("likeTops", likeTops);
+
+		List<MusicTopVo> likeTopsOfRedis = redisTemplate.opsForValue().get("likeTops");
+		if (likeTopsOfRedis == null) {
+			List<MusicTopVo> likeTop = musicService.getLikeTop();
+			redisTemplate.opsForValue().set("likeTops", likeTop);
+			session.setAttribute("likeTops", likeTop);
+			logger.info("通过数据库");
+		}else {
+			session.setAttribute("likeTops", likeTopsOfRedis);
+			logger.info("通过redis");
 		}
 
-		List<MusicTopVo> uploadTops = musicService.getUploadTop();
-		if (uploadTops != null) {
+
+
+
+
+		List<MusicTopVo> uploadTopsOfRedis = redisTemplate.opsForValue().get("uploadTops");
+		if (uploadTopsOfRedis == null) {
+			List<MusicTopVo> uploadTops = musicService.getUploadTop();
+			redisTemplate.opsForValue().set("uploadTops", uploadTops);
 			session.setAttribute("uploadTops", uploadTops);
+		}else {
+			session.setAttribute("uploadTops", uploadTopsOfRedis);
 		}
 
-		List<MusicTopVo> clickRateTops = musicService.getClickRateTop();
-		if (clickRateTops != null) {
+
+
+		List<MusicTopVo> clickRateTopsOfRedis = redisTemplate.opsForValue().get("clickRateTops");
+		if (clickRateTopsOfRedis == null) {
+			List<MusicTopVo> clickRateTops = musicService.getClickRateTop();
+			redisTemplate.opsForValue().set("clickRateTops", clickRateTops);
 			session.setAttribute("clickRateTops", clickRateTops);
+		}else {
+			session.setAttribute("clickRateTops", uploadTopsOfRedis);
 		}
 
 		return "index";
