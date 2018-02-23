@@ -7,11 +7,13 @@
 
 
 ### 项目架构
+项目架构：
 * Spring boot
-* thymeleaf
-* mybatis
-* logback
-* shiro
+* thymeleaf 模板引擎
+* mybatis 持久层框架
+* logback 日志框架
+* shiro 权限框架
+* redis 缓存处理
 
 ### 功能介绍
 - 首页新歌榜单、热升榜、TOP10
@@ -23,6 +25,9 @@
 - 歌曲搜索功能
 
 等等。。。
+
+### 更新日志
+- 2018-22-23  添加对缓存的支持（使用redis）
 
 ### 运行截图
 
