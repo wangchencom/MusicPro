@@ -8,7 +8,7 @@
 
 ### 项目架构
 项目架构：
-* Spring boot
+* spring boot
 * thymeleaf 模板引擎
 * mybatis 持久层框架
 * logback 日志框架
