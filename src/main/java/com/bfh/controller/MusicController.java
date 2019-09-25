@@ -27,200 +27,205 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @Author bfh
- * @Time 2017/11/6
+ * @Author wcc
+ * @Time 2019/09/6
  * 用户在session中获取播放列表
  */
 
 @Controller
 public class MusicController {
 
-	private Logger logger =  LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-	@Autowired
-	private MusicService musicService;
+    @Autowired
+    private MusicService musicService;
 
 
-	@RequestMapping("/music/download/{mid}")
-	public ResponseEntity<byte[]> downloadMusic(@PathVariable("mid") Integer mid) throws IOException {
+    @RequestMapping("/music/download/{mid}")
+    public ResponseEntity<byte[]> downloadMusic(@PathVariable("mid") Integer mid) throws IOException {
 
-		Music music = musicService.downloadMusic(mid);
-		if (music != null) {
-			String musicPath = music.getPathName();
-			String filePath = GetRealPathUitl.getRealPath(musicPath);
+        Music music = musicService.downloadMusic(mid);
+        if (music != null) {
+            String musicPath = music.getPathName();
+            String filePath = GetRealPathUitl.getRealPath(musicPath);
 
-			File file = new File(filePath);
-			byte[] body = null;
-			InputStream is = new FileInputStream(file);
-			body = new byte[is.available()];
-			is.read(body);
-			HttpHeaders headers = new HttpHeaders();
-			String realName = music.getMusicName()+"."+file.getName().split("\\.")[1];
-			String str = new String(realName.getBytes(),"utf-8");
-			headers.add("Content-Disposition", "attchement;filename=" + str);
+            File file = new File(filePath);
+            byte[] body = null;
+            InputStream is = new FileInputStream(file);
+            body = new byte[is.available()];
+            is.read(body);
+            HttpHeaders headers = new HttpHeaders();
+            String realName = music.getMusicName() + "." + file.getName().split("\\.")[1];
+            String str = new String(realName.getBytes(), "utf-8");
+            headers.add("Content-Disposition", "attchement;filename=" + str);
 
-			headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-			headers.setContentDispositionFormData("attachment", new String(str.getBytes("UTF-8"), "ISO8859-1"));
+            headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+            headers.setContentDispositionFormData("attachment", new String(str.getBytes("UTF-8"), "ISO8859-1"));
 
-			HttpStatus statusCode = HttpStatus.OK;
-			ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
-			return entity;
-		}
+            HttpStatus statusCode = HttpStatus.OK;
+            ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+            return entity;
+        }
 
-		return null;
-	}
-
-
-
-	/**
-	 * 音乐搜索功能 - 暂时不做分页
-	 * 分页可以试试前端js实现
-	 * @return 返回搜索信息
-	 */
-	@RequestMapping("/music/searchMusic")
-	public @ResponseBody
-	Boolean searchMusic(String searchText, HttpSession session) {
-
-		List<Music> list = musicService.searchMusic(searchText);
-		if (list != null) {
-			session.setAttribute("searchList", list);
-			return true;
-		}
-		return false;
-	}
+        return null;
+    }
 
 
-	/**
-	 * 用户顶/踩功能
-	 * @return 返回信息
-	 */
-	@RequestMapping("/music/putEvaluate")
-	public @ResponseBody
-	Boolean putEvaluate(Integer mid, Integer uid, Integer state) {
+    /**
+     * 音乐搜索功能 - 暂时不做分页
+     * 分页可以试试前端js实现
+     *
+     * @return 返回搜索信息
+     */
+    @RequestMapping("/music/searchMusic")
+    public @ResponseBody
+    Boolean searchMusic(String searchText, HttpSession session) {
 
-		return musicService.putEvaluate(mid, uid, state);
-	}
-
-
-	/**
-	 * 音乐详情页面
-	 * @param id 音乐id
-	 * @return 音乐详情页面
-	 */
-	@RequestMapping("/music/musicInfo/{id}")
-	public String musicInfo(@PathVariable("id") Integer id, Model model) {
-		logger.info("musicInfo-->"+id);
-
-		//根据id增加点击量
-		musicService.updateClickRate(id);
-
-		//获取音乐信息
-		MusicVo musicInfo = musicService.getMusicInfo(id);
-		if (musicInfo != null) {
-			model.addAttribute("musicInfo", musicInfo);
-		} else {
-			//跳转到错误界面
-			//待添加错误信息
-			return "redirect:/404";
-		}
-
-		//获取评论
-		List<ContentVo> contentVos = musicService.getContentByMid(id);
-		if (contentVos != null) {
-			model.addAttribute("contentVos", contentVos);
-		}
+        List<Music> list = musicService.searchMusic(searchText);
+        if (list != null) {
+            session.setAttribute("searchList", list);
+            return true;
+        }
+        return false;
+    }
 
 
-		return "music/musicInfo";
-	}
+    /**
+     * 用户顶/踩功能
+     *
+     * @return 返回信息
+     */
+    @RequestMapping("/music/putEvaluate")
+    public @ResponseBody
+    Boolean putEvaluate(Integer mid, Integer uid, Integer state) {
+
+        return musicService.putEvaluate(mid, uid, state);
+    }
 
 
-	/**
-	 * 播放音乐模块
-	 */
-	@RequestMapping("/music/playMusic")
-	public @ResponseBody
-	String playMusic(HttpSession session,Integer id) {
-		logger.info("playMusic-->"+id);
-		//返回歌曲名
-		Song song = musicService.getMusicById(id);
-		//更新正在播放歌曲列表
-		List<Song> songs = (List<Song>) session.getAttribute("songs");
-		if (songs != null) {
-			//添加元素到栈顶
-			songs.add(0,song);
-		}
-		return song.getTitle();
-	}
+    /**
+     * 音乐详情页面
+     *
+     * @param id 音乐id
+     * @return 音乐详情页面
+     */
+    @RequestMapping("/music/musicInfo/{id}")
+    public String musicInfo(@PathVariable("id") Integer id, Model model) {
+        logger.info("musicInfo-->" + id);
+
+        //根据id增加点击量
+        musicService.updateClickRate(id);
+
+        //获取音乐信息
+        MusicVo musicInfo = musicService.getMusicInfo(id);
+        if (musicInfo != null) {
+            model.addAttribute("musicInfo", musicInfo);
+        } else {
+            //跳转到错误界面
+            //待添加错误信息
+            return "redirect:/404";
+        }
+
+        //获取评论
+        List<ContentVo> contentVos = musicService.getContentByMid(id);
+        if (contentVos != null) {
+            model.addAttribute("contentVos", contentVos);
+        }
 
 
-	/**
-	 * 用户上传音乐模块
-	 * @param file 上传的音乐
-	 * @return 上传结果
-	 */
-	@RequestMapping("/music/uploadMusic")
-	public @ResponseBody
-	String uploadMusic(MultipartFile file) {
-
-		if(!file.isEmpty()){
-			String musicFormat = file.getOriginalFilename().split("\\.")[1];
-			if ("mp3".equals(musicFormat) || "m4v".equals(musicFormat) || "oga".equals(musicFormat)) {
-				String uuid = UUID.randomUUID().toString();
-				String fileName = uuid + "." + file.getOriginalFilename().split("\\.")[1];
-				String path = "E:\\upload\\MusicPro\\music";
-				File f = new File(path, fileName);
-				try {
-					file.transferTo(f);
-					String imagePath = "/upload/music/" + fileName;
-					logger.info("----->"+imagePath);
-
-					String musicName = file.getOriginalFilename().split("\\.")[0];
-					Music music = new Music();
-					music.setMusicName(musicName);
-					music.setPathName(imagePath);
-					musicService.uploadMusic(music);
+        return "music/musicInfo";
+    }
 
 
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				return "<h2 style='text-align: center;padding-top: 50px;'>Opps！我们不支持这种格式的歌曲。</h2>";
-			}
-		}
-		return "<h2 style='text-align: center;padding-top: 50px;'>歌曲："+file.getOriginalFilename()+"上传成功！</h2>";
-	}
+    /**
+     * 播放音乐模块
+     */
+    @RequestMapping("/music/playMusic")
+    public @ResponseBody
+    String playMusic(HttpSession session, Integer id) {
+        logger.info("playMusic-->" + id);
+        //返回歌曲名
+        Song song = musicService.getMusicById(id);
+        //更新正在播放歌曲列表
+        List<Song> songs = (List<Song>) session.getAttribute("songs");
+        if (songs != null) {
+            //添加元素到栈顶
+            songs.add(0, song);
+        }
+        return song.getTitle();
+    }
 
 
-	/**
-	 * 获取session中的歌曲列表
-	 * @return 歌曲列表
-	 */
-	@RequestMapping("/getSongs")
-	public @ResponseBody List<Song> getSongs(HttpSession session) {
+    /**
+     * 用户上传音乐模块
+     *
+     * @param file 上传的音乐
+     * @return 上传结果
+     */
+    @RequestMapping("/music/uploadMusic")
+    public @ResponseBody
+    String uploadMusic(MultipartFile file) {
 
-		List<Song> songs = (List<Song>) session.getAttribute("songs");
-		if (songs == null) {
-			Song song = new Song();
-			song.setTitle("徐梦圆 - China-P");
-			song.setArtist(null);
-			song.setMp3("/upload/music/4199b5a0-9cef-434a-830f-32beae7d6deb.mp3");
-			song.setPoster("/images/m0.jpg");
-			Song song1 = new Song();
-			song1.setTitle("黒石ひとみ - If I were a Bird");
-			song1.setArtist(null);
-			song1.setMp3("/upload/music/b8d4b205-0174-425c-b411-33fd6f79508e.mp3");
-			song1.setPoster("/images/m0.jpg");
+        if (!file.isEmpty()) {
+            String musicFormat = file.getOriginalFilename().split("\\.")[1];
+            if ("mp3".equals(musicFormat) || "m4v".equals(musicFormat) || "oga".equals(musicFormat)) {
+                String uuid = UUID.randomUUID().toString();
+                String fileName = uuid + "." + file.getOriginalFilename().split("\\.")[1];
+                String path = "E:\\upload\\MusicPro\\music";
+                File f = new File(path, fileName);
+                try {
+                    file.transferTo(f);
+                    String imagePath = "/upload/music/" + fileName;
+                    logger.info("----->" + imagePath);
 
-			songs = new LinkedList<>();
-			songs.add(song);
-			songs.add(0, song1);//添加元素到栈顶
-			session.setAttribute("songs",songs);
-			logger.info("--> 初始化音乐播放器列表");
-		}
-		return songs;
-	}
+                    String musicName = file.getOriginalFilename().split("\\.")[0];
+                    Music music = new Music();
+                    music.setMusicName(musicName);
+                    music.setPathName(imagePath);
+                    musicService.uploadMusic(music);
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return "<h2 style='text-align: center;padding-top: 50px;'>Opps！我们不支持这种格式的歌曲。</h2>";
+            }
+        }
+        return "<h2 style='text-align: center;padding-top: 50px;'>歌曲：" + file.getOriginalFilename() + "上传成功！</h2>";
+    }
+
+
+    /**
+     * 获取session中的歌曲列表
+     *
+     * @return 歌曲列表
+     */
+    @RequestMapping("/getSongs")
+    public @ResponseBody
+    List<Song> getSongs(HttpSession session) {
+
+        List<Song> songs = (List<Song>) session.getAttribute("songs");
+        if (songs == null) {
+            Song song = new Song();
+            song.setTitle("花瓶に触れた - びす");
+            song.setArtist(null);
+            song.setMp3("/upload/music/4dbc61f8-51c7-4b9e-aad2-f4927b6f0899.mp3");
+            song.setPoster("/images/m0.jpg");
+            Song song1 = new Song();
+            song1.setTitle("We Don't Talk Anymore");
+            song1.setArtist(null);
+            song1.setMp3("/upload/music/b8d4b205-0174-425c-b411-33fd6f79508e.mp3");
+            song1.setPoster("/images/m0.jpg");
+
+            songs = new LinkedList<>();
+            songs.add(song);
+            songs.add(0, song1);//添加元素到栈顶
+            session.setAttribute("songs", songs);
+            logger.info("--> 初始化音乐播放器列表");
+        }
+        return songs;
+    }
 
 }

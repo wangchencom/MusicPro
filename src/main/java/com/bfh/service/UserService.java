@@ -6,23 +6,23 @@ import com.bfh.entity.UserGrade;
 import com.bfh.vo.RegisterVo;
 
 /**
- * @Author bfh
- * @Time 2017/11/9
+ * @Author wcc
+ * @Time 2019/09/24
  * @Description: 用户业务层接口
  */
 public interface UserService {
 
-	void updateUserGrade();
+    void updateUserGrade();
 
-	UserGrade getUserGrade();
+    UserGrade getUserGrade();
 
-	Boolean insertComment(Content content);
+    Boolean insertComment(Content content);
 
-	Boolean register(RegisterVo registerVo);
+    Boolean register(RegisterVo registerVo);
 
-	Boolean checkEmailUsed(String email);
+    Boolean checkEmailUsed(String email);
 
-	User login(User user);
+    User login(User user);
 
-	User getUserByUsername(String userName);
+    User getUserByUsername(String userName);
 }

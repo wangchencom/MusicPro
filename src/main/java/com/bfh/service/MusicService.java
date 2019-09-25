@@ -9,36 +9,33 @@ import com.bfh.vo.Song;
 import java.util.List;
 
 /**
- * @Author bfh
- * @Time 2017/11/12
+ * @Author wcc
+ * @Time 2019/09/24
  * @Description 音乐业务层接口
  */
 public interface MusicService {
 
-	List<MusicTopVo> getLikeTop();
+    List<MusicTopVo> getLikeTop();
 
-	List<MusicTopVo> getUploadTop();
+    List<MusicTopVo> getUploadTop();
 
-	List<MusicTopVo> getClickRateTop();
-
-
+    List<MusicTopVo> getClickRateTop();
 
 
+    void updateClickRate(Integer mid);
 
-	void updateClickRate(Integer mid);
+    Music downloadMusic(Integer mid);
 
-	Music downloadMusic(Integer mid);
+    List<Music> searchMusic(String searchText);
 
-	List<Music> searchMusic(String searchText);
+    List<ContentVo> getContentByMid(Integer mid);
 
-	List<ContentVo> getContentByMid(Integer mid);
+    Boolean putEvaluate(Integer mid, Integer uid, Integer state);
 
-	Boolean putEvaluate(Integer mid, Integer uid, Integer state);
+    MusicVo getMusicInfo(Integer id);
 
-	MusicVo getMusicInfo(Integer id);
+    Song getMusicById(Integer id);
 
-	Song getMusicById(Integer id);
-
-	void uploadMusic(Music music);
+    void uploadMusic(Music music);
 
 }

@@ -2,51 +2,54 @@
       xmlns:th="http://www.thymeleaf.org" class="app">
 <head th:replace="common/links::head('云音乐')"></head>
 <body ondragstart="return false">
-  <section class="vbox">
+<section class="vbox">
 
     <section>
-      <section class="hbox stretch">
+        <section class="hbox stretch">
 
-        <section id="content">
-          <section class="hbox stretch">
-            <section>
-              <section class="vbox">
-
-
-                  <section class="scrollable">
-                      <div class="container">
-                          <div class="row">
-                              <div class="col-md-5">
-                                  <img class="img-full" src="/images/musicLogo.png" alt="...">
-                              </div>
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
 
 
-                              <div class="col-md-7">
-                                  <h2><i class="fa icon-music-tone-alt text-danger"></i>&nbsp;&nbsp; <span th:text="${musicInfo.musicName}">Yesterday</span></h2>
-                                  <!--<p>歌手：Anastasia Kushnir</p>-->
+                            <section class="scrollable">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <img class="img-full" src="/images/musicLogo.png" alt="...">
+                                        </div>
 
 
-                                  <a class="btn btn-default">
+                                        <div class="col-md-7">
+                                            <h2><i class="fa icon-music-tone-alt text-danger"></i>&nbsp;&nbsp; <span
+                                                    th:text="${musicInfo.musicName}">Yesterday</span></h2>
+                                            <!--<p>歌手：Anastasia Kushnir</p>-->
+
+
+                                            <a class="btn btn-default">
                                       <span class="text">
                                         <i class="icon-control-play"></i> 播放
                                       </span>
-                                  </a>
+                                            </a>
 
-                                  <a th:if="${session.user} == null" href="javascript:;" onclick="parent.downloadMessage()" class="btn btn-default">
+                                            <a th:if="${session.user} == null" href="javascript:;"
+                                               onclick="parent.downloadMessage()" class="btn btn-default">
                                       <span class="text">
                                         <i class="icon-cloud-download"></i> 下载
                                       </span>
-                                  </a>
+                                            </a>
 
-                                  <a th:if="${session.user} != null" th:href="@{'/music/download/'+${musicInfo.mid}}" class="btn btn-default">
+                                            <a th:if="${session.user} != null"
+                                               th:href="@{'/music/download/'+${musicInfo.mid}}" class="btn btn-default">
                                       <span class="text">
                                         <i class="icon-cloud-download"></i> 下载
                                       </span>
-                                  </a>
+                                            </a>
 
 
-                                  <!--判断用户是否登陆-->
-                                  <span th:if="${session.user} ==  null">
+                                            <!--判断用户是否登陆-->
+                                            <span th:if="${session.user} ==  null">
                                       <button class="btn btn-default" th:onclick="'showLoginMsg()'">
                                       <span class="text">
                                         <i class="fa fa-thumbs-up text-success"></i> <span th:text="${musicInfo.like}">25</span>
@@ -56,151 +59,167 @@
 
                                       <button class="btn btn-default" th:onclick="'showLoginMsg()'">
                                       <span class="text">
-                                        <i class="fa fa-thumbs-down text-danger"></i> <span th:text="${musicInfo.dislike}">10</span>
+                                        <i class="fa fa-thumbs-down text-danger"></i> <span
+                                              th:text="${musicInfo.dislike}">10</span>
                                       </span>
                                       </button>
 
                                   </span>
 
 
-                                  <span th:if="${session.user} !=  null">
-                                      <button class="btn btn-default" th:onclick="'putEvaluate('+${musicInfo.mid}+','+${session.user.uid}+',0);'">
+                                            <span th:if="${session.user} !=  null">
+                                      <button class="btn btn-default"
+                                              th:onclick="'putEvaluate('+${musicInfo.mid}+','+${session.user.uid}+',0);'">
                                       <span class="text">
-                                        <i class="fa fa-thumbs-up text-success"></i> <span id="like" th:text="${musicInfo.like}">25</span>
+                                        <i class="fa fa-thumbs-up text-success"></i> <span id="like"
+                                                                                           th:text="${musicInfo.like}">25</span>
                                       </span>
                                       </button>
 
 
-                                      <button class="btn btn-default" th:onclick="'putEvaluate('+${musicInfo.mid}+','+${session.user.uid}+',1);'">
+                                      <button class="btn btn-default"
+                                              th:onclick="'putEvaluate('+${musicInfo.mid}+','+${session.user.uid}+',1);'">
                                       <span class="text">
-                                        <i class="fa fa-thumbs-down text-danger"></i> <span id="dislike" th:text="${musicInfo.dislike}">10</span>
+                                        <i class="fa fa-thumbs-down text-danger"></i> <span id="dislike"
+                                                                                            th:text="${musicInfo.dislike}">10</span>
                                       </span>
                                       </button>
                                   </span>
 
 
+                                            <!--歌词-->
+                                            <div style="margin-top: 40px;">
+                                                <div>
+                                                    Oh ohh noo ohh ohh<br/>
+                                                    Gave you the benefit of the doubt<br/>
+                                                    给你追问的机会<br/>
+                                                    Till you showed me what your all about<br/>
+                                                    直到你向我表明你的质疑<br/>
+                                                    True colours came out<br/>
+                                                    展示你真实的一面<br/>
+                                                    Oh ohh<br/><br/>
+                                                    And your words couldn't hide the scent<br/>
+                                                    你的话里的语气隐藏不住<br/>
+                                                </div>
+
+                                                <div style="margin-top: 10px;">
+                                                    <a id="showLyric" href="#collapseExample" data-toggle="collapse"
+                                                       onclick="clickShowLyric()">展开 <i
+                                                            class="fa fa-angle-down"></i></a>
+
+                                                    <!--隐藏起来的歌词-->
+                                                    <div class="collapse" id="collapseExample">
+                                                        <div>
+                                                            Coz the truth about where you been<br/>
+                                                            事实是无论你想说什么<br/>
+                                                            It was a fragrence I can't recognize..<br/>
+                                                            我都不明白你话中的含义<br/>
+                                                            Standing there<br/>
+                                                            你就站在那<br/>
+                                                            Scratching your head<br/>
+                                                            挠着你的头<br/>
+                                                            Blood shot eyes, drunk with regret<br/>
+                                                            充血的眼睛 懊恼的面容<br/>
+                                                            Hanging yourself , turn deep over the edge<br/>
+                                                            你挣扎着 最终坠入地狱<br/>
+                                                            I'm done with this<br/>
+                                                            我就是这么做的<br/>
+                                                            Feeling like an idiot<br/>
+                                                            如同一个白痴<br/>
+
+                                                            <a id="hideLyric" href="#collapseExample"
+                                                               data-toggle="collapse" onclick="clickHideLyric()">收起 <i
+                                                                    class="fa fa-angle-up"></i></a>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
-                                  <!--歌词-->
-                                  <div style="margin-top: 40px;">
-                                      <div>
-                                          Oh ohh noo ohh ohh<br/>
-                                          Gave you the benefit of the doubt<br/>
-                                          给你追问的机会<br/>
-                                          Till you showed me what your all about<br/>
-                                          直到你向我表明你的质疑<br/>
-                                          True colours came out<br/>
-                                          展示你真实的一面<br/>
-                                          Oh ohh<br/><br/>
-                                          And your words couldn't hide the scent<br/>
-                                          你的话里的语气隐藏不住<br/>
-                                      </div>
+                                    <div class="row" style="padding-left: 50px;margin-bottom: 80px;">
+                                        <div class="col-md-12" style="padding: 0 30px;">
+                                            <h3 style="color: black;">评论</h3>
+                                            <div style="background-color: red;width: 100%;height: 2px;margin-bottom: 20px;"></div>
 
-                                      <div style="margin-top: 10px;">
-                                          <a id="showLyric" href="#collapseExample" data-toggle="collapse" onclick="clickShowLyric()" >展开 <i class="fa fa-angle-down"></i></a>
+                                            <div th:if="${session.user} != null" class="row">
+                                                <div class="col-md-1">
+                                                    <img src="/images/m0.jpg" th:src="${session.user.userImage}"
+                                                         alt="..." style="width: 70px;height: 70px;">
+                                                    <input hidden="hidden" id="userName"
+                                                           th:value="${session.user.userName}"/>
+                                                    <input hidden="hidden" id="userCommentImage"
+                                                           th:value="${session.user.userImage}"/>
+                                                </div>
+                                                <div class="col-md-11">
+                                                    <textarea id="userContent" class="form-control" rows="3"
+                                                              style="resize:none;"></textarea>
+                                                    <button class="btn btn-primary"
+                                                            th:onclick="'submitComment('+${session.user.uid}+', '+${musicInfo.mid}+')'"
+                                                            style="float: right;margin-top: 10px;">评论
+                                                    </button>
+                                                </div>
 
-                                          <!--隐藏起来的歌词-->
-                                          <div class="collapse" id="collapseExample">
-                                              <div>
-                                                  Coz the truth about where you been<br/>
-                                                  事实是无论你想说什么<br/>
-                                                  It was a fragrence I can't recognize..<br/>
-                                                  我都不明白你话中的含义<br/>
-                                                  Standing there<br/>
-                                                  你就站在那<br/>
-                                                  Scratching your head<br/>
-                                                  挠着你的头<br/>
-                                                  Blood shot eyes, drunk with regret<br/>
-                                                  充血的眼睛 懊恼的面容<br/>
-                                                  Hanging yourself , turn deep over the edge<br/>
-                                                  你挣扎着 最终坠入地狱<br/>
-                                                  I'm done with this<br/>
-                                                  我就是这么做的<br/>
-                                                  Feeling like an idiot<br/>
-                                                  如同一个白痴<br/>
+                                                <p style="color: black;">精彩评论</p>
+                                                <div style="background-color: gray;width: 100%;height: 2px;margin-bottom: 20px;"></div>
 
-                                                  <a id="hideLyric" href="#collapseExample" data-toggle="collapse" onclick="clickHideLyric()" >收起 <i class="fa fa-angle-up"></i></a>
+                                                <div id="newCommont"></div>
 
-                                              </div>
-                                          </div>
-
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+                                            </div>
 
 
+                                            <div th:if="${contentVos} != null">
+                                                <div th:each="contentVo:${contentVos}">
+                                                    <div class="row">
+                                                        <div class="col-md-1">
+                                                            <img src="/images/m0.jpg" th:src="${contentVo.userImage}"
+                                                                 alt="..." style="width: 70px;height: 70px;">
+                                                        </div>
+                                                        <div class="col-md-11" style="padding-left: 30px;">
+                                                            <p>
+                                                                <a href="#" style="color: black;"><span
+                                                                        th:text="${contentVo.userName}"></span></a>：
+                                                                <span th:text="${contentVo.content}"></span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div style="background-color: gray;width: 100%;height: 1px;margin-bottom: 15px;margin-top: 15px;"></div>
+                                                </div>
+                                            </div>
+
+                                            <div id="NoContentDIv" th:if="${contentVos.size()} == 0"
+                                                 style="text-align: center;">
+                                                <h4>暂无评论...</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                          <div class="row" style="padding-left: 50px;margin-bottom: 80px;">
-                              <div class="col-md-12" style="padding: 0 30px;">
-                                  <h3 style="color: black;">评论</h3>
-                                  <div style="background-color: red;width: 100%;height: 2px;margin-bottom: 20px;"></div>
+                            </section>
 
-                                  <div th:if="${session.user} != null" class="row">
-                                      <div class="col-md-1">
-                                          <img src="/images/m0.jpg" th:src="${session.user.userImage}" alt="..." style="width: 70px;height: 70px;">
-                                          <input hidden="hidden" id="userName" th:value="${session.user.userName}" />
-                                          <input hidden="hidden" id="userCommentImage" th:value="${session.user.userImage}" />
-                                      </div>
-                                      <div class="col-md-11">
-                                          <textarea id="userContent" class="form-control" rows="3" style="resize:none;"></textarea>
-                                          <button class="btn btn-primary" th:onclick="'submitComment('+${session.user.uid}+', '+${musicInfo.mid}+')'" style="float: right;margin-top: 10px;">评论</button>
-                                      </div>
-
-                                      <p style="color: black;">精彩评论</p>
-                                      <div style="background-color: gray;width: 100%;height: 2px;margin-bottom: 20px;"></div>
-
-                                      <div id="newCommont"></div>
-
-                                  </div>
-
-
-
-
-                                  <div th:if="${contentVos} != null">
-                                      <div th:each="contentVo:${contentVos}">
-                                          <div class="row">
-                                              <div class="col-md-1">
-                                                  <img src="/images/m0.jpg" th:src="${contentVo.userImage}" alt="..." style="width: 70px;height: 70px;">
-                                              </div>
-                                              <div class="col-md-11" style="padding-left: 30px;">
-                                                  <p>
-                                                      <a href="#" style="color: black;"><span th:text="${contentVo.userName}"></span></a>：
-                                                      <span th:text="${contentVo.content}"></span>
-                                                  </p>
-                                              </div>
-                                          </div>
-                                          <div style="background-color: gray;width: 100%;height: 1px;margin-bottom: 15px;margin-top: 15px;"></div>
-                                      </div>
-                                  </div>
-
-                                  <div id="NoContentDIv" th:if="${contentVos.size()} == 0" style="text-align: center;">
-                                      <h4>暂无评论...</h4>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-
-                  </section>
-
-              </section>
+                        </section>
+                    </section>
+                </section>
+                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
+                   data-target="#nav,html"></a>
             </section>
-          </section>
-          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
         </section>
-      </section>
-    </section>    
-  </section>
+    </section>
+</section>
 </body>
 <script>
     function clickShowLyric() {
-        $("#showLyric").attr("hidden","hidden");
+        $("#showLyric").attr("hidden", "hidden");
     }
+
     function clickHideLyric() {
-        $("#showLyric").removeAttr("hidden","hidden");
+        $("#showLyric").removeAttr("hidden", "hidden");
     }
+
     function showLoginMsg() {
         alert("只有登陆后才可以踩 / 顶哦~");
     }
@@ -210,8 +229,8 @@
         $.ajax({
             type: "POST",
             url: "/music/putEvaluate",
-            data: {'mid':mid,'uid':uid,'state':state},
-            success: function(result){
+            data: {'mid': mid, 'uid': uid, 'state': state},
+            success: function (result) {
                 if (result) {
                     //将歌曲数+1
                     if (0 === state) {
@@ -229,22 +248,22 @@
         });
 
     }
-    
+
     function submitComment(uid, mid) {
         var comment = $("#userContent").val();
 
         //异步提交评论
         $.ajax({
-            type:'POST',
-            url:'/user/addComment',
-            data:{'uid':uid,'mid':mid,'content':comment},
-            success:function (result) {
+            type: 'POST',
+            url: '/user/addComment',
+            data: {'uid': uid, 'mid': mid, 'content': comment},
+            success: function (result) {
                 if (result) {
                     //将评论添加到页面中
                     var userImage = $("#userCommentImage").val();
                     var userName = $("#userName").val();
-                    $("#newCommont").after('<div class="row"><div class="col-md-1"><img src="'+userImage+'" alt="..." style="width: 70px;height: 70px;"></div><div class="col-md-11"><p><a href="#" style="color: black;">'+userName+'</a>：'+comment+'</p></div></div><div style="background-color: gray;width: 100%;height: 1px;margin-bottom: 15px;margin-top: 15px;"></div>');
-                    $("#NoContentDIv").attr("hidden","hidden");
+                    $("#newCommont").after('<div class="row"><div class="col-md-1"><img src="' + userImage + '" alt="..." style="width: 70px;height: 70px;"></div><div class="col-md-11"><p><a href="#" style="color: black;">' + userName + '</a>：' + comment + '</p></div></div><div style="background-color: gray;width: 100%;height: 1px;margin-bottom: 15px;margin-top: 15px;"></div>');
+                    $("#NoContentDIv").attr("hidden", "hidden");
                     alert("评论添加成功！");
                 } else {
                     alert("评论添加失败！");
@@ -252,6 +271,5 @@
             }
         });
     }
-
 </script>
 </html>

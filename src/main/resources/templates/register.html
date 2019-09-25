@@ -3,82 +3,93 @@
       xmlns:th="http://www.thymeleaf.org" class="app">
 <head th:replace="common/links::head('用户注册')"></head>
 <body class="bg-info dker">
-  <section id="content" class="m-t-lg wrapper-md animated fadeInDown">
+<section id="content" class="m-t-lg wrapper-md animated fadeInDown">
     <div class="container aside-xl">
-      <a class="navbar-brand block" href="/"><span class="h1 font-bold">云音乐</span></a>
-      <section class="m-b-lg">
-        <header class="wrapper text-center">
-          <strong>加入我们也许会发现一些有趣的事</strong>
-        </header>
+        <a class="navbar-brand block" href="/"><span class="h1 font-bold">云音乐</span></a>
+        <section class="m-b-lg">
+            <header class="wrapper text-center">
+                <strong>加入我们也许会发现一些有趣的事</strong>
+            </header>
 
 
-      <div class="form-group">
-        <input type="text" name="userName" id="userName" placeholder="昵称" class="form-control rounded input-lg text-center no-border">
-      </div>
-      <div class="form-group">
-        <input type="email" name="email" id="email" placeholder="邮箱" class="form-control rounded input-lg text-center no-border">
-      </div>
-      <div class="form-group">
-         <input type="password" name="first_password" id="first_password" placeholder="密码" class="form-control rounded input-lg text-center no-border">
-      </div>
-      <div class="form-group">
-          <input type="password" name="second_password" id="second_password" placeholder="确认密码" class="form-control rounded input-lg text-center no-border">
-      </div>
-      <div class="checkbox i-checks m-b">
-        <label class="m-l">
-          <input type="checkbox" name="checkbox" id="checkbox" checked="yes"><i></i> 同意 <a href="#">使用协议</a>
-        </label>
-      </div>
-      <div id="reg_ok"><button type="button" onclick="register()" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">注  册</span></button></div>
-      <div id="reg_error" hidden="hidden"><button type="button" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded disabled"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">该邮箱已被注册</span></button></div>
-      <div class="line line-dashed"></div>
-      <p class="text-muted text-center"><small>已经拥有账号？</small></p>
-      <a href="/user/login" class="btn btn-lg btn-info btn-block btn-rounded">登  陆</a>
- 
+            <div class="form-group">
+                <input type="text" name="userName" id="userName" placeholder="昵称"
+                       class="form-control rounded input-lg text-center no-border">
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" id="email" placeholder="邮箱"
+                       class="form-control rounded input-lg text-center no-border">
+            </div>
+            <div class="form-group">
+                <input type="password" name="first_password" id="first_password" placeholder="密码"
+                       class="form-control rounded input-lg text-center no-border">
+            </div>
+            <div class="form-group">
+                <input type="password" name="second_password" id="second_password" placeholder="确认密码"
+                       class="form-control rounded input-lg text-center no-border">
+            </div>
+            <div class="checkbox i-checks m-b">
+                <label class="m-l">
+                    <input type="checkbox" name="checkbox" id="checkbox" checked="yes"><i></i> 同意 <a href="#">使用协议</a>
+                </label>
+            </div>
+            <div id="reg_ok">
+                <button type="button" onclick="register()"
+                        class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded"><i
+                        class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">注  册</span></button>
+            </div>
+            <div id="reg_error" hidden="hidden">
+                <button type="button" class="btn btn-lg btn-warning lt b-white b-2x btn-block btn-rounded disabled"><i
+                        class="icon-arrow-right pull-right"></i><span class="m-r-n-lg">该邮箱已被注册</span></button>
+            </div>
+            <div class="line line-dashed"></div>
+            <p class="text-muted text-center"><small>已经拥有账号？</small></p>
+            <a href="/user/login" class="btn btn-lg btn-info btn-block btn-rounded">登 陆</a>
 
-      </section>
+
+        </section>
     </div>
-  </section>
-  <!-- footer -->
-  <footer id="footer" th:replace="common/links::footer"></footer>
-  <!-- / footer -->
+</section>
+<!-- footer -->
+<footer id="footer" th:replace="common/links::footer"></footer>
+<!-- / footer -->
 </body>
 <script>
-    $(function(){
-        $("#email").blur(function(){
+    $(function () {
+        $("#email").blur(function () {
             var email = $("#email").val();
-            if(email !== null && email !== ""){
+            if (email !== null && email !== "") {
                 checkName(email);
             }
         });
         $("#checkbox").change(function () {
             var isChecked = $('#checkbox').prop('checked');
-            if(isChecked){
+            if (isChecked) {
                 $("#reg_ok").removeAttr("hidden");
 
-            }else{
-                $("#reg_ok").attr("hidden","hidden");
+            } else {
+                $("#reg_ok").attr("hidden", "hidden");
             }
         })
     });
 
-    function checkName(email){
+    function checkName(email) {
         $.ajax({
-            url:'/user/checkName',
-            type:'post',
-            data:{"email":email},
-            success:function(data){
-                if(data){
-                    $("#reg_ok").attr("hidden","hidden");
+            url: '/user/checkName',
+            type: 'post',
+            data: {"email": email},
+            success: function (data) {
+                if (data) {
+                    $("#reg_ok").attr("hidden", "hidden");
                     $("#reg_error").removeAttr("hidden");
-                }else{
-                    $("#reg_error").attr("hidden","hidden");
+                } else {
+                    $("#reg_error").attr("hidden", "hidden");
                     $("#reg_ok").removeAttr("hidden");
                 }
             }
         });
     }
-    
+
     function register() {
         var userName = $("#userName").val().trim();
         var email = $("#email").val().trim();
@@ -88,11 +99,11 @@
             if (first_password !== second_password) {
                 alert("两次输入的密码不一致！");
             } else {
-                $.post("/user/register",{
-                    'userName':userName,
-                    'email':email,
-                    'first_password':first_password,
-                    'second_password':second_password
+                $.post("/user/register", {
+                        'userName': userName,
+                        'email': email,
+                        'first_password': first_password,
+                        'second_password': second_password
                     },
                     function (result) {
                         if (result) {//用户注册成功！
@@ -106,8 +117,7 @@
             }
         }
     }
-    
-    
+
 
 </script>
 </html>

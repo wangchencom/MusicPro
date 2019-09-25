@@ -14,21 +14,24 @@
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
             <i class="icon-settings"></i>
         </a>
-    </div>      <ul class="nav navbar-nav hidden-xs">
-    <li>
-        <a href="#nav,.navbar-header" data-toggle="class:nav-xs,nav-xs" class="text-muted">
-            <i class="fa fa-indent text"></i>
-            <i class="fa fa-dedent text-active"></i>
-        </a>
-    </li>
-</ul>
-    <form action="#" onsubmit="return searchMusic()" class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
+    </div>
+    <ul class="nav navbar-nav hidden-xs">
+        <li>
+            <a href="#nav,.navbar-header" data-toggle="class:nav-xs,nav-xs" class="text-muted">
+                <i class="fa fa-indent text"></i>
+                <i class="fa fa-dedent text-active"></i>
+            </a>
+        </li>
+    </ul>
+    <form action="#" onsubmit="return searchMusic()" class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs"
+          role="search">
         <div class="form-group">
             <div class="input-group">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
             </span>
-                <input type="text" id="searchText" class="form-control input-sm no-border rounded" placeholder="发现好时光...">
+                <input type="text" id="searchText" class="form-control input-sm no-border rounded"
+                       placeholder="发现好时光...">
             </div>
         </div>
     </form>
@@ -38,8 +41,6 @@
             <li th:if="${session.user } == null" class="hidden-xs">
                 <a href="/user/login" class="dropdown-toggle lt"> 登陆&nbsp;&nbsp;|&nbsp;&nbsp;注册 </a>
             </li>
-
-
 
 
             <li th:if="${session.user} != null" class="dropdown">

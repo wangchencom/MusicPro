@@ -3,30 +3,30 @@ var playlistOptions = null;
 var myPlaylist = null;
 var json = null;
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-  //用ajax从服务器获取songsList
-  // songsList = [
-  //   {
-  //     title:"China-P",
-  //     artist:"徐梦圆",
-  //     mp3:"music/徐梦圆 - China-P.mp3",
-  //     poster: "images/m0.jpg"
-  //   }
-  // ];
+    //用ajax从服务器获取songsList
+    // songsList = [
+    //   {
+    //     title:"China-P",
+    //     artist:"徐梦圆",
+    //     mp3:"music/徐梦圆 - China-P.mp3",
+    //     poster: "images/m0.jpg"
+    //   }
+    // ];
 
 
     //获取歌曲列表并初始化播放器
-    $.get("/getSongs", function(data){
+    $.get("/getSongs", function (data) {
 
         if (data.length < 1) {//默认歌曲列表
             songsList = [
-              {
-                title:"China-P",
-                artist:"徐梦圆",
-                mp3:"/upload/music/4199b5a0-9cef-434a-830f-32beae7d6deb.mp3",
-                poster: "/images/m0.jpg"
-              }
+                {
+                    title: "China-P",
+                    artist: "徐梦圆",
+                    mp3: "/upload/music/4199b5a0-9cef-434a-830f-32beae7d6deb.mp3",
+                    poster: "/images/m0.jpg"
+                }
             ];
             playlistOptions = {
                 enableRemoveControls: true,
@@ -50,7 +50,6 @@ $(document).ready(function(){
 });
 
 
-
 //初始化播放器
 function initJPlayer(songsList, playlistOptions) {
 
@@ -69,17 +68,17 @@ function initJPlayer(songsList, playlistOptions) {
         });
 
     //初始化按钮时间按钮事件
-    $(document).on($.jPlayer.event.pause, myPlaylist.cssSelector.jPlayer,  function(){
+    $(document).on($.jPlayer.event.pause, myPlaylist.cssSelector.jPlayer, function () {
         $('.musicbar').removeClass('animate');
         $('.jp-play-me').removeClass('active');
         $('.jp-play-me').parent('li').removeClass('active');
     });
 
-    $(document).on($.jPlayer.event.play, myPlaylist.cssSelector.jPlayer,  function(){
+    $(document).on($.jPlayer.event.play, myPlaylist.cssSelector.jPlayer, function () {
         $('.musicbar').addClass('animate');
     });
 
-    $(document).on('click', '.jp-play-me', function(e){
+    $(document).on('click', '.jp-play-me', function (e) {
         e && e.preventDefault();
         var $this = $(e.target);
         if (!$this.is('a')) $this = $this.closest('a');
@@ -89,9 +88,9 @@ function initJPlayer(songsList, playlistOptions) {
 
         $this.toggleClass('active');
         $this.parent('li').toggleClass('active');
-        if( !$this.hasClass('active') ){
+        if (!$this.hasClass('active')) {
             myPlaylist.pause();
-        }else{
+        } else {
             var i = Math.floor(Math.random() * (1 + 7 - 1));
             myPlaylist.play(i);
         }

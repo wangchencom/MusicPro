@@ -5,14 +5,13 @@ import com.bfh.vo.MusicTopVo;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.List;
 
 /**
- * @Author bfh
+ * @Author wcc
  * @Date 2018/2/22.
  * @Description RedisConfig
  */
@@ -24,6 +23,13 @@ public class RedisConfig {
 //        return new JedisConnectionFactory();
 //    }
 
+    /**
+     * ValueOperations：简单K-V操作
+     * SetOperations：set类型数据操作
+     * ZSetOperations：zset类型数据操作
+     * HashOperations：针对map类型的数据操作
+     * ListOperations：针对list类型的数据操作
+     */
     @Bean
     public RedisTemplate<String, List<MusicTopVo>> redisTemplate(RedisConnectionFactory factory) {
 

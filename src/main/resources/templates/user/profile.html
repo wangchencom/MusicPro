@@ -1,120 +1,135 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" class="app">
-<head th:replace="common/links::head('个人中心')"></head>
+<head th:replace="common/links::head('个人中心')">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+
+
+</head>
 <body class="" ondragstart="return false">
-  <section class="vbox">
+<section class="vbox">
 
     <section>
-      <section class="hbox stretch">
+        <section class="hbox stretch">
 
-        <section id="content">
-          <section class="hbox stretch">
-            <section>
-              <section class="vbox">
-                  <section class="scrollable">
-                      <section class="hbox stretch">
-                          <aside class="aside-lg bg-light lter b-r">
-                              <section class="vbox">
-                                  <section class="scrollable">
-                                      <div class="wrapper">
-                                          <div class="text-center m-b m-t">
-                                              <a th:if="${session.user} != null" href="#" class="thumb-lg">
-                                                  <img src="/images/m0.jpg" th:src="${session.user.userImage}" class="img-circle">
-                                              </a>
-                                              <div>
-                                                  <div th:text="${session.user.userName}" class="h3 m-t-xs m-b-xs">夏天</div>
-                                                  <small class="text-muted"><i class="fa fa-map-marker"></i> 安徽，芜湖</small>
-                                              </div>
-                                          </div>
-                                          <div class="panel wrapper">
-                                              <div class="row text-center">
-                                                  <div class="col-xs-6">
-                                                      <a href="#">
-                                                          <span class="m-b-xs h4 block">LV<span th:text="${session.userGrade.grade}"></span></span>
-                                                          <small class="text-muted">等级</small>
-                                                      </a>
-                                                  </div>
-                                                  <div class="col-xs-6">
-                                                      <a href="#">
-                                                          <span class="m-b-xs h4 block"><span th:text="${session.userGrade.score}"></span></span>
-                                                          <small class="text-muted">积分</small>
-                                                      </a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="btn-group btn-group-justified m-b">
-                                              <a class="btn btn-success btn-rounded" data-toggle="button">
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable">
+                                <section class="hbox stretch">
+                                    <aside class="aside-lg bg-light lter b-r">
+                                        <section class="vbox">
+                                            <section class="scrollable">
+                                                <div class="wrapper">
+                                                    <div class="text-center m-b m-t">
+                                                        <a th:if="${session.user} != null" href="#" class="thumb-lg">
+                                                            <img src="/images/m0.jpg" th:src="${session.user.userImage}"
+                                                                 class="img-circle">
+                                                        </a>
+                                                        <div>
+                                                            <div th:text="${session.user.userName}"
+                                                                 class="h3 m-t-xs m-b-xs">夏天
+                                                            </div>
+                                                            <small class="text-muted"><i class="fa fa-map-marker"></i>
+                                                                安徽，芜湖</small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel wrapper">
+                                                        <div class="row text-center">
+                                                            <div class="col-xs-6">
+                                                                <a href="#">
+                                                                    <span class="m-b-xs h4 block">LV<span
+                                                                            th:text="${session.userGrade.grade}"></span></span>
+                                                                    <small class="text-muted">等级</small>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-xs-6">
+                                                                <a href="#">
+                                                                    <span class="m-b-xs h4 block"><span
+                                                                            th:text="${session.userGrade.score}"></span></span>
+                                                                    <small class="text-muted">积分</small>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="btn-group btn-group-justified m-b">
+                                                        <a class="btn btn-success btn-rounded" data-toggle="button">
                                                 <span class="text">
                                                   <i class="fa fa-eye"></i> 关注
                                                 </span>
-                                                <span class="text-active">
+                                                            <span class="text-active">
                                                   <i class="fa fa-eye"></i> 已关注
                                                 </span>
-                                              </a>
-                                              <a class="btn btn-dark btn-rounded">
-                                                  <i class="fa fa-comment-o"></i> 私聊
-                                              </a>
-                                          </div>
-                                          <div>
-                                              <small class="text-uc text-xs text-muted">心情</small>
+                                                        </a>
+                                                        <a class="btn btn-dark btn-rounded">
+                                                            <i class="fa fa-comment-o"></i> 私聊
+                                                        </a>
+                                                    </div>
+                                                    <div>
+                                                        <small class="text-uc text-xs text-muted">心情</small>
 
-                                              <p th:text="${session.user.userMood}">太阳当空照，花儿对我笑.</p>
-                                              <div class="line"></div>
+                                                        <p th:text="${session.user.userMood}">平静.</p>
+                                                        <div class="line"></div>
 
-                                          </div>
-                                      </div>
-                                  </section>
-                              </section>
-                          </aside>
-                          <aside class="bg-white">
-                              <form name="uploadForm" action="/music/uploadMusic" method="post" enctype="multipart/form-data" >
-                                  <div class="row" style="padding-top: 90px;">
-                                      <div class="col-md-3"></div>
-                                      <div class="col-md-6">
-                                          <img src="/images/upload_img.png" onclick="F_open_dialog()">
-                                          <input type="file" id="file" name="file" style="display:none" onchange="change()">
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </section>
+                                    </aside>
+                                    <aside class="bg-white">
+                                        <form name="uploadForm" action="/music/uploadMusic" method="post"
+                                              enctype="multipart/form-data">
+                                            <div class="row" style="padding-top: 90px;">
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-6">
+                                                    <img src="/images/upload_img.png" onclick="F_open_dialog()">
+                                                    <input type="file" id="file" name="file" style="display:none"
+                                                           onchange="change()">
 
-                                      </div>
+                                                </div>
 
-                                      <div class="col-md-3"></div>
-                                  </div>
-                                  <div class="row">
-                                      <div class="col-md-4"></div>
-                                      <div class="col-md-4" style="text-align: center;">
-                                          <p id="file_name"></p>
-                                          <input type="submit" id="submit_file" class="btn btn-success" style="display:none" value="上  传" />
+                                                <div class="col-md-3"></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4" style="text-align: center;">
+                                                    <p id="file_name"></p>
+                                                    <input type="submit" id="submit_file" class="btn btn-success"
+                                                           style="display:none" value="上  传"/>
 
-                                      </div>
+                                                </div>
 
-                                      <div class="col-md-4"></div>
+                                                <div class="col-md-4"></div>
 
-                                  </div>
-                              </form>
-                          </aside>
+                                            </div>
+                                        </form>
+                                    </aside>
 
-                      </section>
-                  </section>
+                                </section>
+                            </section>
 
-              </section>
+                        </section>
+                    </section>
+                </section>
+                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
+                   data-target="#nav,html"></a>
             </section>
-          </section>
-          <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
         </section>
-      </section>
-    </section>    
-  </section>
+    </section>
+</section>
 </body>
 <script>
     function F_open_dialog() {
         document.getElementById("file").click();
     }
+
     function change() {
         var obj = document.getElementById("file");
         var len = obj.files.length;
         for (var i = 0; i < len; i++) {
             var name = obj.files[i].name;
-            $("#file_name").html('您已选择：'+name);
+            $("#file_name").html('您已选择：' + name);
         }
         $("#submit_file").show();
     }
